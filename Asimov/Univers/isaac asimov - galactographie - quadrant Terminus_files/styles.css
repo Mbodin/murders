@@ -1,0 +1,188 @@
+
+/* -------------- */
+/* styles de base */
+/* -------------- */
+
+body {
+ margin-left:0px; margin-right:0px; margin-top:10px; margin-bottom:10px; background-color:white;
+ font-family:verdana, sans-serif; font-size:13px; font-weight:normal; color:black;
+ text-align:left;
+ }
+a:link, a:visited, a:active { text-decoration:underline; color:black; }
+a:hover { text-decoration:none; color:white; background-color:black; }
+
+td, p, blockquote { font-size:13px; text-align:justify; }
+ul { list-style:square; text-align:justify; }
+textarea, input, select {
+ background-color:white;
+ font-family:verdana, sans-serif; font-size:13px; font-weight:normal;
+ color:black; text-align:left; }
+
+h1 {
+ height:30px;
+ font-family:verdana, sans-serif; font-size:24px; font-style:italic; 
+ text-align:center; color:#A0A0A0; }
+
+h2, h3 {
+ margin-top:0px; vertical-align:middle;
+ font-family:verdana, sans-serif; font-size:18px; font-style:italic; color:white; }
+
+h2 { /* titre du bloc d'en-tete */
+ line-height:40px; height:44px; text-align:center; text-indent:0px; 
+ background-image:url(images/titreh2.gif); }
+
+h3 { /* titre des blocs suivants */
+ line-height:55px; height:60px; text-align:left; text-indent:50px; 
+ background-image:url(images/titreh3.gif); }
+
+h4 { /* titre de ligne (mise en exergue) */
+ font-family:verdana, sans-serif; font-size:13px; font-weight:bold; font-style:normal; }
+h4 a:link, h4 a:visited, h4 a:active { color:black; }
+h4 a:hover { text-decoration:none; color:white; background-color:black; }
+
+h5 { /* titre de ligne (voir aussi...) */
+ text-align:left;
+ font-family:verdana, sans-serif; font-size:11px; font-weight:normal; font-style:italic; }
+h5 a:link, h5 a:visited, h5 a:active { color:black; }
+h5 a:hover { text-decoration:none; color:white; background-color:black; }
+
+h6 { /* références d'une couvertures ou citation */
+ text-align:right;
+ font-family:verdana, sans-serif; font-size:11px; font-weight:normal; 
+ }
+h6 a:link, h6 a:visited, h6 a:active {  }
+h6 a:hover { color:white; background-color:black; }
+
+
+/* ------------------- */
+/* styles particuliers */
+/* ------------------- */
+
+/* recherche */
+.look { background-image:url(images/mlook.gif); width:210px; height:44px; text-align:center; }
+.look input { 
+ border:0px; font-family:verdana, sans-serif; font-size:13px; font-weight:normal;
+ color:black; background-color:#F0F0F0; }
+
+/* postit */
+.post_post { width:310px; }
+.post_t { background-image:url(images/postitt.gif); width:310px; height:20px; }
+.post_m { background-image:url(images/postitm.gif); width:310px; }
+.post_m p { margin-left:15px; margin-right:15px; }
+.post_b { background-image:url(images/postitb.gif); width:310px; height:20px; }
+.post_head { text-align:center; font-weight:bold; }
+.post_link { text-align:center; }
+
+/* readit */
+.read_read { width:510px; }
+.read_t { background-image:url(images/readitt.gif); width:510px; height:20px; }
+.read_m { background-image:url(images/readitm.gif); width:510px; }
+.read_m p, .read_m h6 { margin-left:15px; margin-right:15px; }
+.read_b { background-image:url(images/readitb.gif); width:510px; height:20px; }
+
+/* textit */
+.text_text { width:626px; }
+.text_t { background-image:url(images/textitt.gif); width:626x; height:20px; }
+.text_l { background-image:url(images/textitl.gif); width:20px; }
+.text_m { background-image:url(images/textitm.gif); width:586px; }
+.text_r { background-image:url(images/textitr.gif); width:20px; }
+.text_b { background-image:url(images/textitb.gif); width:626px; height:20px; }
+
+/* menu */
+
+/* zone du titre de menu et de son sous-menu */
+.m_cells, .m_cells a:link, .m_cells a:visited, .m_cells a:active { cursor:pointer; }
+
+/* zone du sous-menu */
+.ms_class {
+ visibility:hidden; position:absolute; text-align:center; width:210px; margin-left:-30px; }
+
+/* bordures du sous-menu (top, bottom, left, right, body) */
+.ms_t { background-image:url(images/m1t.gif); width:210px; height:20px; }
+.ms_b { background-image:url(images/m1b.gif); width:210px; height:20px; }
+.ms_l { background-image:url(images/m1l.gif); width:20px; }
+.ms_r { background-image:url(images/m1r.gif); width:20px; }
+.ms_body { background-color:#181818; width:170px; }
+
+/* ligne du sous-menu */
+.ms_cells, .ms_cells_over, .ms_cells_null {
+ font-family:verdana, sans-serif; font-size:13px; font-weight:normal; text-indent:5px;
+ border:0px; border-left:5px solid #181818; color:gray; width:100%; }
+.ms_cells_null { background-image:url(images/menusep.gif); height:19px; }
+.ms_cells_over { border-left:5px solid white; color:white; cursor:pointer; }
+
+/* bordures du menu de la page (top, bottom, left, right, body) */
+.mp_t { background-image:url(images/m2t.gif); width:210px; height:20px; }
+.mp_b { background-image:url(images/m2b.gif); width:210px; height:20px; }
+.mp_l { background-image:url(images/m2l.gif); width:20px; }
+.mp_r { background-image:url(images/m2r.gif); width:20px; }
+.mp_body { background-color:#F0F0F0; width:170px; }
+
+/* ligne du menu de la page */
+.mp_cells, .mp_cells_over {
+ font-family:verdana, sans-serif; font-size:13px; font-weight:normal; text-indent:5px;
+ border:0px; border-left:5px solid #F0F0F0; color:gray; width:100%; }
+.mp_cells_over { border-left:5px solid #181818; color:#181818; cursor:pointer; }
+
+/* contenu de la page (de gauche à droite) */
+.bodyborderleft      { background-image:url(images/mbodyl.gif); width:22px; }
+.bodymenu            { background-color:#F0F0F0; width:210px; }
+.bodymenufiller      { height:30px; }
+.bodytextborderleft  { background-image:url(images/msepar.gif); width:56px; } 
+.bodytext            { background-color:#F0F0F0; width:626px; }
+.bodytextborderright { background-color:#F0F0F0; width:24px; } 
+.bodyborderright     { background-image:url(images/mbodyr.gif); width:22px; }
+
+.bodylarge { background-color:#F0F0F0; width:916px; text-align:center; } /* page large */
+
+/* menu (fin) */
+
+/* pages index */
+.pack { width:410px; height:130px; background-image:url(images/knode2.gif); }
+.pack_home, .pack_left, .pack_right { width:100%; font-size:11px; }
+.pack_home { text-align:left; }
+.pack_left { text-align:right; cursor:pointer; }
+.pack_right { text-align:left; cursor:pointer; }
+.pack_img { border-left:1px solid black; border-right:1px solid black; width:100px; height:100px; }
+
+/* interview */
+.sw1 { width:12%; color:#181818; text-align:right; font-family:"courier new", sans-serif; }
+.sw2 { width:88%; color:#181818; text-align:justify; font-style:italic; }
+.ia1 { width:12%; color:black; text-align:right; font-family:"courier new", sans-serif; }
+.ia2 { width:88%; color:black; text-align:justify; }
+
+/* ------------- */
+/* styles divers */
+/* ------------- */
+
+.im { border:1px solid black; } /* image */
+
+.vg { border:outset 2px white; background-color:gray; } /* vignette */
+.cv { border:outset 2px white; }  /* couvertures */
+.xvg { border:outset 2px white; background-color:black; margin-top:0px; } 
+
+.ex { color:blue; } /* mise en exergue */
+.xxex { font-weight:bold; } /* mise en exergue */
+.ex a:link, .ex a:visited, .ex a:active { color:#404040; }
+.ex a:hover { color:#404040; background-color:white; }
+
+.t2 { color:blue; } /* couleur seconde */
+.t2 a:link, .t2 a:visited, .t2 a:active { color:blue; }
+.t2 a:hover { color:blue; background-color:white; }
+
+.t3 { color:green; } /* couleur tierce */
+.t3 a:link, .t3 a:visited, .t3 a:active { color:green; }
+.t3 a:hover { color:green; background-color:white; }
+
+.pc { font-family:arial, sans-serif; } /* petit commentaire */
+
+/* tableaux du futur */
+.dt { color:black; } /* date */
+.hd { /* head */
+ background-color:#D0D0D0; 
+ border-top:solid 1px white; border-left:solid 1px white; 
+ border-bottom:solid 1px black; border-right:solid 1px black; } 
+.ln { width:15%; font-weight:bold; text-align:right; } /* line */
+.ad , /* anno domini */
+.eg , /* ere galactique */
+.ef { font-family:verdana, sans-serif; } /* ere fondation */
