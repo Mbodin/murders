@@ -1,0 +1,37 @@
+
+\input{en_têtes_cartes.tex}
+
+
+\def\carteslargeur{57mm}
+\def\carteslargeurplusepsilon{63mm}
+\def\carteshauteur{23mm}
+\def\carteshauteurplusepsilon{29mm}
+
+\def\carteParLigne{3}
+\def\ligneParPage{9}
+
+\newcommand{\credit}[4]{%
+\carte[DarkChameleon][white][LightChameleon][rounded corners = 3pt, line width = 3mm]{
+\textcolor{DarkChameleon}{
+\hfill\decothreeleft\hfill
+\scalebox{1}{\textsc{$#1$ Crédits Anacréoniens}}
+\hfill\decothreeright\hfill
+\vfill
+\hfill\parbox[b]{1.5cm}{\scalebox{1.5}{\textcolor{black}{\textbf{#1}}}\\\centering{}#3}\hfill
+\includegraphics[height = 1.2cm]{#2}
+\hfill\parbox[b]{1.5cm}{\scalebox{1.5}{\textcolor{Aluminium4}{\textbf{#1}}}\\\centering{}#4}\hfill
+\vfill
+\rotatebox[origin = c]{180}{\makebox[2.75cm]{\leaders\hbox{\scalebox{0.5}{~\textcolor{white}{#1}~\textcolor{Aluminium4}{\rotatebox[origin = c]{180}{#1}}}}\hfill}}
+\makebox[2.75cm]{\leaders\hbox{\scalebox{0.5}{~\textcolor{white}{#1}~\textcolor{Aluminium4}{\rotatebox[origin = c]{180}{#1}}}}\hfill}
+}
+}%
+}
+
+\debut%
+%
+\seq{18}{\credit{250}{Lune.png}{\leftmoon}{\rightmoon}}%
+\seq{18}{\credit{500}{Anacreon.png}{\dsmilitary}{\dsheraldical}}%
+\seq{18}{\credit{1~000}{logo_empire.png}{\dsjuridical}{\dscommercial}}%
+%
+\fin
+

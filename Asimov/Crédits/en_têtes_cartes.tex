@@ -1,0 +1,296 @@
+% Modèle de jeux de cartes.
+% Créé par Martin Bodin.
+% Ce document peut être utilisé, copié, distribué, modifié librement pour tout usage libre.
+
+\documentclass[a4paper, 11pt, francais]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage[a4paper, margin=.5cm, top = 2.2cm]{geometry}
+\usepackage{amssymb, amsmath, amsthm, amsfonts, cmll}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{amsfonts}
+\usepackage{dsfont}
+\usepackage{xcolor}
+\usepackage{bbding}
+\usepackage{tikz}
+\usepackage{forloop}
+\usepackage{pifont}
+\usepackage{recycle}
+\usepackage{fourier}
+\usepackage{wasysym}
+\usepackage{dictsym}
+
+
+\usetikzlibrary{decorations}
+\usetikzlibrary{shapes, arrows}
+
+\pagestyle{empty}
+
+
+\def\carteslargeur{4.7cm}
+\def\carteslargeurplusepsilon{5cm}
+\def\carteshauteur{8cm}
+\def\carteshauteurplusepsilon{8.3cm}
+
+\def\descriptionlargeur{4.4cm}
+\def\descriptionhauteur{2.7cm}
+\def\largeurimage{4cm}
+
+% COLORS (Tango)
+% I did not remember where I find it, but I do remember it was free.
+\definecolor{LightButter}{rgb}{0.98,0.91,0.31}
+\definecolor{LightOrange}{rgb}{0.98,0.68,0.24}
+\definecolor{LightChocolate}{rgb}{0.91,0.72,0.43}
+\definecolor{LightChameleon}{rgb}{0.54,0.88,0.20}
+\definecolor{LightSkyBlue}{rgb}{0.45,0.62,0.81}
+\definecolor{LightPlum}{rgb}{0.68,0.50,0.66}
+\definecolor{LightScarletRed}{rgb}{0.93,0.16,0.16}
+\definecolor{Butter}{rgb}{0.93,0.86,0.25}
+\definecolor{Orange}{rgb}{0.96,0.47,0.00}
+\definecolor{Chocolate}{rgb}{0.75,0.49,0.07}
+\definecolor{Chameleon}{rgb}{0.45,0.82,0.09}
+\definecolor{SkyBlue}{rgb}{0.20,0.39,0.64}
+\definecolor{Plum}{rgb}{0.46,0.31,0.48}
+\definecolor{ScarletRed}{rgb}{0.80,0.00,0.00}
+\definecolor{DarkButter}{rgb}{0.77,0.62,0.00}
+\definecolor{DarkOrange}{rgb}{0.80,0.36,0.00}
+\definecolor{DarkChocolate}{rgb}{0.56,0.35,0.01}
+\definecolor{DarkChameleon}{rgb}{0.30,0.60,0.02}
+\definecolor{DarkSkyBlue}{rgb}{0.12,0.29,0.53}
+\definecolor{DarkPlum}{rgb}{0.36,0.21,0.40}
+\definecolor{DarkScarletRed}{rgb}{0.64,0.00,0.00}
+\definecolor{Aluminium1}{rgb}{0.93,0.93,0.92}
+\definecolor{Aluminium2}{rgb}{0.82,0.84,0.81}
+\definecolor{Aluminium3}{rgb}{0.73,0.74,0.71}
+\definecolor{Aluminium4}{rgb}{0.53,0.54,0.52}
+\definecolor{Aluminium5}{rgb}{0.33,0.34,0.32}
+\definecolor{Aluminium6}{rgb}{0.18,0.20,0.21}
+
+\def\couleurCadre{Butter}
+\def\couleurDesc{DarkButter}
+\def\defaultFill{LightChocolate}
+\def\defaultBotColor{Chocolate}
+\def\fillDescr{LightButter}
+\def\botDescr{Aluminium1}
+
+\def\fboxruleimage{1pt}
+
+\def\carteParLigne{4}
+\def\ligneParPage{3}
+
+
+\setlength{\parindent}{0pt}
+
+\tikzset
+{
+	ovalBox/.style =
+	{
+		rectangle,
+		rounded corners = 0.5cm,
+		text centered
+	}
+}
+
+\newcommand{\ds}{\displaystyle}
+
+\makeatletter
+
+\newcommand{\ovalbox@complete}[5]{%
+	\begin{tikzpicture}%
+		\node[ovalBox, draw = #1, top color = #2, bottom color = #3, #4]{#5};%
+	\end{tikzpicture}%
+}
+
+\def\ovalbox@parseiv[#1][#2][#3][#4]{%
+	\ovalbox@complete{#1}{#2}{#3}{#4}%
+}
+
+\def\ovalbox@parseiii[#1][#2][#3]{%
+	\@ifnextchar[{\ovalbox@parseiv[#1][#2][#3]}%
+	{\ovalbox@parseiv[#1][#2][#3][thick]}%
+}
+
+\def\ovalbox@parseii[#1][#2]{%
+	\@ifnextchar[{\ovalbox@parseiii[#1][#2]}%
+	{\ovalbox@parseiii[#1][#2][white]}%
+}
+
+\def\ovalbox@parsei[#1]{%
+	\@ifnextchar[{\ovalbox@parseii[#1]}%
+	{\ovalbox@parseii[#1][white]}%
+}
+
+\newcommand{\ovalbox}[1][black]{%
+	\ovalbox@parsei[#1]%
+}
+
+\makeatother
+
+\def\retour{
+
+	\vspace{\stretch{1}}}
+
+\newcounter{compteurdecarte}
+\setcounter{compteurdecarte}{-1}
+
+\newcounter{compteurdeligne}
+\setcounter{compteurdeligne}{0}
+
+\newcommand{\checkCarte}{%
+	\addtocounter{compteurdecarte}{1}%
+	\ifthenelse{\equal{\value{compteurdecarte}}{\carteParLigne}}{%
+		\setcounter{compteurdecarte}{0}%
+		\addtocounter{compteurdeligne}{1}%
+		\ifthenelse{\equal{\value{compteurdeligne}}{\ligneParPage}}{%
+			\setcounter{compteurdeligne}{0}%
+			%\end{tabular}
+			\retour\retour%
+			\newpage\retour\retour%
+			%\begin{tabular}{l}%
+		}{%
+			\par%
+		}%
+	}{}%
+}
+
+\newcommand{\newpageforcards}{%
+%	\ifthenelse{\equal{\value{compteurdeligne}}{\carteParLigne}}{%
+%		\ifthenelse{\equal{\value{compteurdecarte}}{\ligneParPage}}{%
+%			% Nothing…
+%		}{\checkCarte\newpageforcards}%
+%	}{\checkCarte\newpageforcards}%
+\setcounter{compteurdeligne}{-1}%
+\setcounter{compteurdecarte}{-1}%
+\retour\retour\newpage\retour\retour%
+}
+
+% Utilisation:
+%	\carte[borderColor][topBackgroundColor][bottomBackgroundColor][otherArgumentsForTikz]{contents}
+% Typicals arguments for otherArgumentsForTikz:
+%	rounded corners = 3pt, line width = 3mm
+
+\newcommand{\carte}{%
+	\checkCarte{}%
+	\carteNoCheck%
+}
+
+\makeatletter
+
+\newcommand{\carteNoCheck@complete}[5]{%
+	\parbox[c][\carteshauteurplusepsilon]{\carteslargeurplusepsilon}{%
+		\ovalbox[#1][#2][#3][#4]{%
+			\parbox[c][\carteshauteur][s]{\carteslargeur}{\vspace{\stretch{1}}%
+			\begin{center}{#5}\end{center}\vspace{\stretch{1}}}}}%
+}
+
+\def\carteNoCheck@parseiv[#1][#2][#3][#4]{%
+	\carteNoCheck@complete{#1}{#2}{#3}{#4}%
+}
+
+\def\carteNoCheck@parseiii[#1][#2][#3]{%
+	\@ifnextchar[{\carteNoCheck@parseiv[#1][#2][#3]}%
+	{\carteNoCheck@parseiv[#1][#2][#3][thick]}%
+}
+
+\def\carteNoCheck@parseii[#1][#2]{%
+	\@ifnextchar[{\carteNoCheck@parseiii[#1][#2]}%
+	{\carteNoCheck@parseiii[#1][#2][white]}%
+}
+
+\def\carteNoCheck@parsei[#1]{%
+	\@ifnextchar[{\carteNoCheck@parseii[#1]}%
+	{\carteNoCheck@parseii[#1][white]}%
+}
+
+\newcommand{\carteNoCheck}[1][black]{%
+	\carteNoCheck@parsei[#1]%
+}
+
+\makeatother
+
+\newcommand{\rigortemplatearg}[4]{%
+	#1{{\huge\textsc{#2}}%
+	#3%
+	\retour\retour
+	\ovalbox[\couleurDesc][\fillDescr][\botDescr]{\parbox[c][\descriptionhauteur]{\descriptionlargeur}{\begin{center}\small{#4}\end{center}}}}%
+}
+
+\newcommand{\rigortemplate}{%
+	\rigortemplatearg{\carte}%
+}
+
+\newcommand{\rigortemplateNoCheck}{%
+	\rigortemplatearg{\carteNoCheck}%
+}
+
+\newcommand{\rigor}[3]{%
+	\rigortemplate{#1}{%
+	\ifthenelse{\equal{#2}{}}{}{%
+	\retour\retour%
+	\setlength{\fboxrule}{\fboxruleimage}\setlength{\fboxsep}{0pt}%
+	\fcolorbox{\couleurCadre}{white}{\includegraphics[width=\largeurimage]{images/#2}}%
+	\setlength{\fboxrule}{1pt}\setlength{\fboxsep}{2pt}%
+	}%
+	}{#3}%
+}
+
+\newcommand{\rigortex}[3]{%
+	\rigortemplate{#1}{%
+	%\ifthenelse{\equal{#2}{}}{}{\retour\retour}%
+	\retour\retour%
+	#2}{#3}%
+}
+
+\newcommand{\smallCorner}{\scalebox{0.7}}
+
+\newcommand{\coins}[3]{%
+	{#2}\hspace{#1}{\smallCorner{#2}}%
+	\vfill\vfill\vfill%
+	\begin{center}{#3}\end{center}%
+	\vfill\vfill\vfill%
+	\rotatebox{180}{{#2}\hspace{#1}{\smallCorner{#2}}}%
+}
+
+\newcommand{\centreDouble}[2]{%
+	\parbox{#1}{%
+	\makebox[#1]{#2}\\
+	\vfill
+	\makebox[#1]{\rotatebox[origin = center]{180}{#2}}%
+	}%
+}
+
+\newcommand{\centreDoubleSym}[3]{%
+	\parbox{#1}{%
+	\makebox[#1]{#2}\\
+	\begin{center}#3\end{center}%
+	\makebox[#1]{\rotatebox{180}{#2}}%
+	}%
+}
+
+\newcounter{cptocc}
+\newcommand{\occ}[2]{\setcounter{cptocc}{#1}\ifthenelse{\equal{#1}{0}}{}{\addtocounter{cptocc}{-1}#2\occ{\value{cptocc}}{#2}}}
+
+\newcounter{seqcounter}
+\newcommand{\seq}[2]{%
+	\setcounter{seqcounter}{#1}%
+	\whiledo{\value{seqcounter}>0}{%
+	#2%
+	\addtocounter{seqcounter}{-1}}%
+}
+
+\newcommand{\debut}{
+	\begin{document}%
+	\retour\retour%
+	\begin{center}%
+%	\begin{tabular}{l}%
+}
+
+\newcommand{\fin}{%
+%	\end{tabular}%
+	\end{center}%
+	\retour\retour%
+	\end{document}
+}
+

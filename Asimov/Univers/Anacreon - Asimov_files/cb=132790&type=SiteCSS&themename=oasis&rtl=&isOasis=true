@@ -1,0 +1,6 @@
+
+/* Version: not-nginx Call to: http://asimov.wikia.com/index.php?title=MediaWiki:Wikia.css&usemsgcache=yes&ctype=text/css&smaxage=86400&cb=132790&action=raw&maxage=86400 */
+/* Empty */
+/* Version: not-nginx Call to: http://asimov.wikia.com/index.php?title=-&action=raw&maxage=86400&gen=css&useskin=oasis */
+/* generated user stylesheet */
+a.new, #quickbar a.new { color: #CC2200; }
