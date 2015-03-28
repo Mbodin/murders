@@ -9,7 +9,12 @@ Martin.
 
 ¹ C’est à dire que vous ne tirez pas de profits en les faisant jouer : vous avez le droit de les rendre payantes tant que cela compense les coûts et pas plus.
 
-#License
+# Important
+
+Bien évidement, si vous vous trouvez ici et que vous commencez à lire un document, vous ne pourrez plus le jouer en tant que joueur.
+Donc attention !
+
+# License
 CC BY-NC-SA
 https://creativecommons.org/licenses/by-nc-sa/3.0/
 
