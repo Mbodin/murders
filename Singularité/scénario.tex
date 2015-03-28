@@ -1,0 +1,982 @@
+% Créé par Martin Bodin (2011).
+% Document sous licence CC BY-NC-SA
+
+\input{en-têtes.tex}
+
+\newcommand{\forplayer}{y} % or y
+\newcommand{\theplayer}{13} % if \equal{\forplayer}{y}, then it represents the number of this player.
+\newcommand{\manyColored}{n}
+
+\defineNewPlayer{1}{Red} % Maxime Rochard :  Scientifique du temps
+\defineNewPlayer{2}{Blue} % Jason Vercours :  éclaireur
+\defineNewPlayer{3}{OliveGreen} % Christopher Pill : premier agent
+\defineNewPlayer{4}{Cyan} % Jane Royld :  second agent, que l’on a pas eu le temps de breifer…
+\defineNewPlayer{5}{Brown} % Dayazell Faiz, un agent ennemi
+\defineNewPlayer{6}{Yellow} % Erwin Ramohn :  une historienne d’un futur très lointain, qui ne comprends pas tout ce qui s’est passé…
+\defineNewPlayer{7}{Plum} % Helen Adom :  Diplomate américaine
+\defineNewPlayer{8}{Gray} % Ubu Nassim Abbas :  le représentant un peu fou du pays
+\defineNewPlayer{9}{BlueViolet} % Mohamed Abd Al-Kader :  Le conseiller du représentant
+\defineNewPlayer{10}{Rhodamine} % Assia Djamila :  Une espionne américaine
+\defineNewPlayer{11}{Violet} % Ronald Shell : Un agent à qui on a donné l’ordre de veiller à ce que le second agent ne fasse pas de bêtises (genre tuer le tyran) lorsqu’on a remarqué qu’on avait oublié de le briefer sur les remontées dans le temps…
+\defineNewPlayer{12}{DarkSkyBlue} % Safouane Abd Al-Ali :  un soldat du tyran.
+\defineNewPlayer{13}{LightSkyBlue} % Sandy Craft (de son vrai nom Sandy Bush) :  Une journaliste américaine qui vient d’être capturé par le soldat, qui a estimé être une bonne idée de l’amener ici…  Elle possède des photos et peux témoigner que l’OTAN n’a pas respecté ses accords sur la guerre, mais sa présence ici est illégale.  Elle a de plus des contacts vers des personnes importantes des nations occidentales.
+
+\newcommand{\pageForPlayer}[4]{%
+\player{#1}{
+	\mj{\newpage}%
+	\section{Ton personnage~: #2}
+	\begin{description}
+		#3
+	\end{description}
+\par
+	\paragraph{Description du personnage par lui-même.}
+	{#4}
+}}
+
+\title{Un point de singularité}
+\author{Martin \textsc{Bodin}}
+\date{}
+
+\begin{document}
+
+\mj{\maketitle}
+
+%\tableofcontents
+
+%\newpage
+
+\mj{
+\section{À propos de l’univers}
+
+Je rappelle que les événements présentés ici ne sont que pure fiction, même si lointainement inspirés de la réalité.
+De même, certains personnages sont volontairement mauvais ou conçus de manière volontairement caricaturale.
+Ce sont des personnages de fiction et j’ai rédigé leurs fiches de personnage en tant que tel~:  n’allez pas m’accuser de tenir des propos indéfendables — je ne les défends pas. ☺
+
+J’aimerais remercier Alexis~\textsc{Testaud} pour m’avoir aidé à trouver le lieu de l’action de cette soirée enquête.
+
+\subsection{Présentation rapide}
+
+\fixme
+
+\subsection{Les différents personnages}
+
+\begin{description}
+	\item\fixme
+%\item[Lord~\textsc{Henry~Hasting}, 73~ans] Représentant direct de la Couronne, il nous fait l’honneur d’être venu découvrir lui aussi ces nouvelles inventions.
+\end{description}
+}
+
+\players[3][5][7][8][9][10][11][12][13]{
+\section{Synopsis}
+
+Ce qui était censée être une visite diplomatique un peu tendue semble très mal commencer~:  une tempête de sable vient d’éclater et tous les participants se sont jetés dans le bunker.
+Les quelques soldats présents se sont vite repris et ont fermés toutes les portes… mais personne n’a vraiment été présenté avant d’arriver dans le bâtiment clos.
+La cohue a heureusement rapidement cessé lorsque \textsc{Mohamed~Abd~Al-Kader} a prononcé quelques mots bien trouvés.
+La visite diplomatique commence peut-être mal mais il y a encore possibilité de la rattraper.
+}
+
+\players[2][3][4][5][7][8][9][10][11][13]{
+	\section{Histoire}
+
+	Voici (très) rapidement ce qui s’est passé depuis le début \players[2][3][4][5][11]{du (21\ieme) siècle}\players[7][8][9][10][13]{des événements}…
+
+\newcommand{\decouvertes}{\Biohazard}%⚛}%\FiveFlowerOpen}%\dschemical}
+\newcommand{\conflits}{\Lightning}%⚔}%\Sparkle}%\dsmilitary}
+\newcommand{\evenementsloins}{\Mundus}%🌍}%\SnowflakeChevron}%\dsjuridical}
+\players[2][3][4][5][11]{
+Pour simplifier la (re-)lecture de cette chronologie, j’ai ajouté les symboles suivants pour bien repérer quel type d’événement est décrit :  \decouvertes{} pour les découvertes scientifiques, \conflits{} pour les conflits proches et \evenementsloins{} pour les événements lointains.}
+
+%\begin{changemargin}{0cm}{0cm}
+\xdef\executeStuff{n}
+\newcommand{\waitForExecution}[2]{\ifthenelse{\equal{\executeStuff}{y}}{#1{#2}}{\noexpand\waitForExecution{#1}{#2}}}
+\newcommand{\myspace}{\hspace{5mm}}
+\xdef\toBeExecutedAtChronoline{0/0}
+\newcommand{\chronoline}[4]{%
+	\def\minDate{#2}%
+	\def\maxDate{#4}%
+	\def\minDateName{#1}%
+	\def\maxDateName{#3}%
+	\begin{tikzpicture}[remember picture, overlay]
+		\begin{pgfonlayer}{background}
+		\shade [top color = LightPlum, bottom color = Plum]
+		(\minDateName) ++ (-1.2, 0.8) --
+		++(.4, 0) --
+		(-1.45, -.8) ++ (\maxDateName) --
+		cycle ;
+		\end{pgfonlayer}
+		\foreach \date in {\minDate,...,\maxDate}{
+			\pgfmathparse{(\date - \minDate) / (\maxDate - \minDate)} \let\myPos\pgfmathresult
+			\draw[opacity = 0] (\minDateName) ++ (-1, .5) -- (-1.45, -.5) ++ (\maxDateName) node [pos = \myPos, opacity = 1, left = 3mm] (date\date) {\date} ;
+		}
+		\begin{pgfonlayer}{foreground}
+		%\def\executeStuff{y}
+		%\toBeExecutedAtChronoline
+		\foreach \chrono/\point in \toBeExecutedAtChronoline{
+			\ifthenelse{\equal{\chrono}{0}}{}{
+				\correspondance{\chrono}{\point}
+			}
+		}
+		\end{pgfonlayer}
+	\end{tikzpicture}%
+	%\xdef\executeStuff{n}
+	\xdef\toBeExecutedAtChronoline{0/0}%
+}
+\newcommand{\correspondance}[2]{
+	%\begin{tikzpicture}[remember picture, overlay]
+		%\pgfmathparse{(#1 - \minDate) / (\maxDate - \minDate)} \let\myPos\pgfmathresult
+		%\draw[opacity = 0] (#1) ++ (-1, .5) -- (-1, -.5) ++ (#3) node [pos = \myPos, opacity = 1, right = 3mm] -- (#2) ;
+		%\draw[->, thick, Chameleon] (date#1) -- (#2) ;
+	%\end{tikzpicture}
+	\draw[->, thick, DarkPlum, opacity = 1] (#1.east) + (0.3,0) .. controls +(.6, 0) and +(-1, 0) .. (#2.west) ;
+}
+\xdef\currentNumberOfNode{O}
+\newcommand{\evenement}[5][]{
+	\ifthenelse{\equal{#1}{}}{}{%
+		\makebox[0pt]{\tikz[remember picture] \node (#1) {} ;}
+	}%
+	\tikz[remember picture] \node (node\currentNumberOfNode) {} ;
+	%\ifthenelse{\equal{\@nameuse{date#2}}{}}{\@namedef{date#2}{node\currentNumberOfNode}}{%
+	%	\makeatletter%
+		%\fixme
+		%\def\oldNodes{\@nameuse{date#2}}%
+		%\@namedef{date#2}{\oldNodes, node\currentNumberOfNode}%
+	%	\makeatother%
+	%}%
+	%\xdef\toBeExecutedAtChronoline{\toBeExecutedAtChronoline\waitForExecution{\noexpand\correspondance}{{#2}{node\currentNumberOfNode}}}%
+	\xdef\toBeExecutedAtChronoline{date#2/node\currentNumberOfNode,\toBeExecutedAtChronoline}%
+	%\show\toBeExecutedAtChronoline%
+	%\pgfmathparse{\currentNumberOfNode + 1}\xdef\currentNumberOfNode{\pgfmathresult}%
+	\xdef\currentNumberOfNode{S\currentNumberOfNode}%
+	%\show\currentNumberOfNode%
+	#5%
+	#3 &
+	#2 &
+	$
+	\left\{
+		\myspace{}
+		\parbox{12.8cm}{ % 9cm pour le mode non a4wide.
+			\vspace{1mm}#4\vspace{1mm}
+		}
+	\right.
+	$ \\[3mm]
+}
+
+%\sethlcolor{LightButter}
+%\newcommand{\important}[1]{\hl{#1}}
+\newcommand{\important}[1]{\tikz[baseline = -0.8ex]
+	\node [rectangle, fill = LightButter, rounded corners = 1mm] {#1};}
+
+%\newpage
+\setlongtables
+\begin{longtable}{llm{13.5cm}} % 10cm pour le mode non a4wide.
+& Année & \myspace{} Événement \\
+\endfirsthead
+& Année & \myspace{} Événement \\
+\endhead
+\endfoot
+\evenement[debut1]{1976}{\evenementsloins}{L’\textsc{Espagne} quitte le territoire du \textsc{Sahara~Occidental}}{}
+\evenement{1979}{\evenementsloins}{Le \textsc{Maroc}, réclamant ces terres, entre en guerre contre la \textsc{République arabe sahraouie démocratique}.}{}
+\evenement{1982}{\evenementsloins}{La \textsc{République arabe sahraouie démocratique} est maintenant membre de l’\textsc{Union africaine}, mais pas encore reconnue comme un état à part entière.}{}
+\evenement{1987}{\evenementsloins}{Le \textsc{Maroc} construit un mur afin de délimiter ses nouvelles frontières.}{}
+\players[7][8][9][10][13]{
+\evenement[fin1]{1991}{\evenementsloins}{Un cessez le feu est négocié grâce entre-autres à l’\textsc{ONU}.  La guerre du \textsc{Sahara~Occidental} atteint maintenant les \important{16~000 morts}.}{\chronoline{debut1}{1976}{fin1}{2001}}}
+\players[2][3][4][5][11]{
+\evenement{1991}{\evenementsloins}{Un cessez le feu est négocié grâce entre-autres à l’\textsc{ONU}.  La guerre du \textsc{Sahara~Occidental} atteint maintenant les \important{16~000 morts}.}{}
+\evenement{2001}{\evenementsloins}{\textsc{Ubu~Nassim~Abbas}, le président de la \textsc{République arabe sahraouie démocratique} disparaît soudainement… le conflit avec le \textsc{Maroc} se calme rapidement.}{}
+\evenement{2008}{\evenementsloins}{Près de 85 états reconnaissent maintenant la \textsc{République arabe sahraouie démocratique}, mais aucun membre de l’\textsc{ONU}.}{}
+\evenement{2025}{\conflits}{\textsc{Ubu~Nassim~Abbas} réapparaît et accuse les \textsc{États-Unis} de l’avoir enfermé et torturé pendant plus de 20~ans.}{}
+\evenement{2027}{\evenementsloins}{Il semblerait que la \textsc{République arabe sahraouie démocratique} ait conservé quelques restes des essais nucléaires du \textsc{Sahara}~:  l’état autoproclamé annonce qu’il a l’arme nucléaire et qu’il compte bien s’en servir contre le \textsc{Maroc}.}{}
+\evenement{2029}{\evenementsloins}{Le \textsc{Maroc} obtient le soutient de l’\textsc{ONU}, qui s’engage à riposter en cas d’attaque nucléaire.}{}
+\evenement{2030}{\evenementsloins}{Les lobbys écologistes devenus très puissants interdisent toute utilisation de l’arme nucléaire par les membres de l’\textsc{ONU}.}{}
+% Pour le joueur 1, ça s’arrête là !
+\evenement{2032}{\decouvertes}{Des scientifiques annoncent que le voyage dans le temps est possible et commence à être opérationnel…}{}
+\evenement{2033}{\conflits}{Le \textsc{Maroc} vient d’être rayé de la carte par une attaque nucléaire.  L’\textsc{ONU} appelle à combattre contre la \textsc{République arabe sahraouie démocratique}, l’\textsc{Union africaine} se range contre les combattants de l’\textsc{ONU}.}{}
+\evenement[fin1]{2034}{\conflits}{Le jeu des alliances internationnales assez fragile fait rentrer le monde dans la \important{Troisième Guerre mondiale}.}{\chronoline{debut1}{1976}{fin1}{2034}}}
+\end{longtable}
+%\end{changemargin}
+}
+
+\players[1][2][3][6][11]{
+\section{Les voyages dans le temps}
+
+Le problème avec la physique des voyages dans le temps, c’est que pour pouvoir faire des expériences, il nous faudrait plusieurs univers différents auquels on ne tiendrait pas vraiment.
+Bien évidement, ça n’est pas le cas et nous devons nous en tenir à de simples hypothèses.
+Cependant la théorie suivante semble tout expliquer.
+
+Il existe une cinquième force dans l’univers~:  la force $\tau$.
+Contrairement aux autres forces, qui n’agissent que sur l’hyperplan\footnote{
+	Bien entendu les choses sont plus complexes que cela puisque le temps est lié à l’espace (un objet en accélération ayant un temps ralenti par rapport à un objet fixe) et que les quatre autres forces sont loins de se propager de manière immédiate, mais on peut assimiler localement ces «~tranches~» de temps à de simples hyperplans.
+} formé par le temps actuel, cette dernière agit sur l’espace à quatre dimensions tout entier.
+Les particules sur lesquelles elle agit sont appelées les $\tau$ particules.
+On en connaît peu sur ces particules, à part le fait qu’elles semblent se \emph{lier} à certains agencements nanomoléculaires bien particuliers.
+Ces liaisons laissent imaginer l’existence de nombreuses autres forces que la force $\tau$ et les quatre fondamentales, mais on en est loin d’en savoir suffisamment sur cela.
+
+Ce qui est sûr, c’est que cette force tendrait à être proportionnelle à l’inverse du carré de la \emph{distance quadridimensionnelle}, ou \emph{quadistance} entre les $\tau$-particules, c’est à dire l’inverse de $\displaystyle\def\aux#1#2{\left(\frac{\delta #1}{#2_P}\right)^2}\aux{x}\ell + \aux{y}\ell + \aux{z}\ell + \aux{t \times \tilde\tau}{t}$.
+Avec la distance de \textsc{Planck} $\displaystyle\ell_P = \sqrt{\frac{\not h G}{c^3}}$ et le temps de \textsc{Planck} $\displaystyle t_P = \sqrt{\frac{\not h G}{c^5}}$ où $\not h$ est la constante de \textsc{Planck} réduite, $G$ la constante gravitationnelle et $c$ la vitesse de la lumière dans le vide.
+Cela revient à dire que la force $\tau$ est inversement proportionnelle à $\displaystyle\delta{x}^2 + \delta{y}^2 + \delta{z}^2 + \left(\tilde\tau c\delta{t}\right)^2$.
+Ce qui est assez intéressant est que la constante d’espace-temps $\tilde\tau$ est ridiculement petite~:  de l’ordre de $10^{-14}$~!
+Autant dire que seule la distance spatiale compte lorsque les échelles de temps ne dépassent pas la centaine d’année et celles de distance le kilomètre.
+
+En pratique, ces $\tau$-particules se repoussent ou s’attirent en fonction de leur charge $\tau$~:  si elles se trouvent au même endroit, mais à des temps différentes, elles vont se rapprocher ou s’éloigner mutuellement l’une de l’autre.
+Les nanostructures avec qui elles sont liées semblent les suivre sans trop de problème et il semblerait même que les quatre forces fondamentales continues de s’appliquer sur ces nanostructures alors qu’elles se déplacent dans le temps~:  si l’on «~attache~» à l’aide d’une attraction électro-magnétique une particule ou un groupe de particules aux nanostructures, elles vont se déplacer dans le temps avec.  Par l’expérience, il semblerait qu’elles sont alors toujours attirées par les particules du temps d’où elles viennent et du temps où elles voyagent~:  bien que voyageant dans le temps, leur liaison avec la nanostructure tends à s’amincir.
+
+La création de $\tau$-particules est possible, même si elle est extrêmement complexe (en tout cas avec nos connaissances actuelles).
+De plus les $\tau$-particules sont relativement instables~:  elles disparaissent au bout d’une dizaine d’heures.
+Mais il est possible avec notre technique actuelle de créer une tige composée de ces nanostructures spéciales et de les remplir de $\tau$-particules chargées.
+Si une personne serre cette tige suffisamment fortement, elle pourra être entraînée en arrière dans le temps avec la tige~:  il suffira pour cela de placer \emph{après} que la personne soit partie, et à l’emplacement où se trouvait la personne avant de partir dans le passé une machine qui va créer brièvement des $\tau$-particules de même charge que celles se trouvant dans la tige.
+La machine et la tige, se trouvant alors au même endroit mais à des moments différents, vont se repousser mutuellement~:  la tige va revenir en arrière dans le temps (avec la personne qui la tient si cette dernière la tient suffisamment fortement) et la machine va se déplacer vers le futur.
+Pour le retour, il suffit de faire exactement la même chose, mais avec en générant avec cette même machine des $\tau$-particules de charge opposée~:  la tige et la machine vont alors s’attirer mutuellement, entraînant le voyageur du temps avec lui.
+
+Ceci fonctionne assez bien en pratique (en tout cas avec des particules à la place des humains) car les quatre premières forces ne se propagent pas dans le temps~:  lorsque le sujet se déplace dans le temps, seul importe que la position d’arrivée soit libre de tout objet (l’air ne gêne pas car il est suffisamment peu dense pour ne pas poser de problème s’il rentre dans un corps humain… mais ce n’est pas le cas d’un objet physique~!).
+À noter que comme dit précédemment, une particule «~suivant~» les nanostructures va s’en éloigner.  Il est alors possible que cette particule se «~détache~» de la nanostructure.
+Cela ne pose pas de problème pour la particule~:  elle abrège son voyage dans le temps au moment où elle s’est détachée, à mi-chemin du voyage dans le temps.
+
+Un problème n’a cependant pas encore été abordé ici~:  celui de la causalité.
+En effet dans l’expérience du voyageur temporel décrite plus haut, pour pouvoir poser la machine à l’emplacement du voyageur, il faut qu’il soit déjà parti et donc que la machine soit mise à sa place dans le futur ; cela semble se mordre la queue~!
+Des expériences ont de plus été faites pour mettre en évidence les paradoxes de causalité (similaires à ceux d’\textsc{Einstein} qui imaginait qu’il pourrait empêcher ses deux parents de se rencontrer, et donc empêcherait son existence, son voyage dans le temps, et donc qui leurs permettrait de se rencontrer…  D’où un paradoxe~!).
+
+Voici l’expérience typique~:  un nombre aléatoire $n_1$ est choisi grâce à un générateur aléatoire quantique.
+De tels nombres sont situés entre de très grandes valeurs et il est extrêmement improbable d’obtenir deux fois le même nombre.
+Ce générateur aléatoire est muni d’un détecteur de particules venant du futur~:  si une particule arrive, un booléen $b$ est mis sur la valeur \textbf{vraie}.
+Un certain temps après, un autre nombre $n_2$ est réémis à l’aide d’une autre générateur.
+Si $b$ est \textbf{vrai}, l’expérience s’arrête.
+Si ce second nombre $n_2$ est égal à $n_1$ et que $b$ est \textbf{faux}, alors l’expérience s’arrête.
+Sinon, une particule est émise dans le passé.
+
+Cette expérience tente donc d’effectuer un paradoxe temporel du type «~si la particule est émise, alors $b$ est \textbf{vrai} et aucune particule n’est émise~».
+Le seul et unique cas pour que l’expérience ne provoque pas un tel paradoxe est que $n_1 = n_2$, ce qui est quasiment impossible.
+
+Les résultats de l’expérience montre que systématiquement $n_1 = n_2$, comme si la nature était prête à abandonner toute notion du hasard si cela pouvait éviter un paradoxe temporel.
+De nombreuses variantes ont été proposées de l’expérience (par exemple en itérant sur une série $n_1$, …, $n_k$ nombres ou en choisissant certains de ces nombres à des valeurs volontairement très improbables — par exemple qui impliquerait qu’un électron soit situé plusieurs mètres à côté de sa position classique~:  c’est possible, mais à une probabilité tellement faible que l’on peut la considérer impossible).
+À chaque fois, le cas improbable l’emporte et le paradoxe n’apparaît jamais.
+
+Notre hypothèse est que l’univers entier est le résultat d’une gigantesque équation et que \emph{toutes} les possibilités sont essayées en parallèles, puis que toutes celles aboutissant à un paradoxe soient tout simplement abandonnées.
+Par le simple fait d’avoir fait ces expériences, nous avons donc en quelque sorte «~détruit~» des quantités inimaginables d’univers possibles, simplement en imposant à une particule d’être à un endroit quasi-impossible pour elle.
+Le gros problème est bien sûr que l’univers dans lequel nous vivons actuellement \emph{va peut-être} aboutir à de tels paradoxes si des voyages dans le temps arrivent trop souvent~:  nous pensons que les univers sont détruits au moment où un voyage conduisant à un paradoxe est effectué.
+Il est ainsi tout à fait possible que notre univers tel que nous le connaissons aujourd’hui ne soit que le résultat partiel d’une équation, qui ne se révèlera que plus tard comme n’étant pas une réelle solution, et sera ainsi détruit pour les besoins de la cause~!
+
+Les voyages dans le temps sont bien plus dangereux qu’ils ne le paraissent réellement.
+Le plus important lors d’un tel voyage est de conserver le \emph{point fixe}~:  l’univers doit rester possible, il doit rester solution à tous prix~!
+Les notions de morales n’ont plus à jouer là-dedans~:  si une personne meurt, il est \emph{hors de question} de tenter de voyager dans le temps pour éviter qu’elle ne meurt, car cela créerait un paradoxe temporel et détruirait l’univers tout entier (la personne que l’on tentait de sauver avec d’ailleurs).
+La phobie principale d’un voyageur temporel est donc de conserver la solution, le \emph{point fixe}~:  toute mission, qu’elle qu’elle soit, qu’elle que soit le commanditaire ou le but, ne doit \emph{jamais} intervenir à l’encontre de ce qui s’est passé.
+
+Bien entendu, le plus simple est tout simplement de ne jamais voyager dans le temps.
+Ces expériences étaient déjà très dangereuses~:  si l’on avait pas imaginé cette histoire de nombre aléatoires, mais que l’on avait tout simplement branché le détecteur de particules à l’émetteur avec une porte \textbf{non}, l’univers se serait écroulé à cause d’une expérience scientifique stupide~!
+\emph{L’Univers tout entier~!}
+
+\players[2][3][4][11]{Ces missions de voyage dans le temps sont donc extrêmement rares et réservées à des situations désespérées.}
+}
+
+\pageForPlayer{1}{Maxime~Rochard}{
+	\item[Âge] 29~ans (né en 2003).
+	\item[Détails physiques] Grand et mince.
+	\item[Possessions] De nombreux capteurs des années 2032.
+}{
+	J’ai toujours été passionné des voyages dans le temps, et voilà que mon rêve se réalise de mon vivant~:  je vais bientôt être projeté en 2001 — deux ans avant ma propre naissance — et je vais y effectuer une missions scientifique.
+	Lorsque j’ai eu ma thèse en physique quantique, en 2029, je me suis joins à une équipe qui se formait.
+	À l’époque la physique quantique avait tellement mis le désordre dans les croyances scientifiques que les théories les plus extravagantes se sont développées.
+	Mon équipe était une de celles-ci.  Afin d’expliquer des phénomènes quantiques complexes, quelqu’un avait eu l’idée de modifier la notion de distance «~classique~» en y ajoutant la composante de temps (à l’époque, on l’avait normalisé avec le temps de \textsc{Planck} $t_P$).
+	L’équipe avait comme objectif de voir si un tel modèle pouvait expliquer de nouvelles choses, ou unifier les théories qui s’éparpillaient.
+
+	Au bout de nombreuses expériences, on a pu découvrir de nombreuses choses.
+	En premier que les quatre forces fondamentales n’utilisent pas cette distance, mais qu’il existe d’autres forces qui l’utilise.
+	Nous nous sommes rendus compte que ce modèle devait ajouter la constante d’espace-temps $\tilde\tau$ et nous avons essayé de la calculer précisément, donnant lieu à la définition de la quadistance.
+	Pour l’instant, seule la force $\tau$ a été modélisée parmi ces nouvelles forces.
+	Nous avons pu travailler à l’élaboration de nombreux capteurs pour $\tau$-particules et nous avons pu remarquer l’existence d’ondes provoquées par ces particules.
+
+	Ces ondes sont probablement le résultat de voyages dans le temps dus à des voyageurs du futur, ou plus intéressant à des phénomènes naturels complexes.
+	Nous avons essayé de tracer ces différentes ondes, voir d’où elles viennent et si elles se concentrent… et nous avons trouvé~!
+	Il semblerait qu’il y ai un point de l’espace-temps vers lequel elles convergent toutes.
+	Ce point est situé sur \textsc{Terre}, dans un pays d’\textsc{Afrique} nommé \textsc{République arabe sahraouie démocratique}, en plein \textsc{Sahara} en 2001.
+	Le fait que ce point soit sur \textsc{Terre} ou soit proche temporellement n’est pas si étonnant que cela~:  ces ondes se dispersent rapidement avec la quadistance.
+	Il y a probablement de nombreux autres points de l’espace-temps similaires à celui-ci, c’est juste que nous ne les captons pas.
+
+	Sa position dans le désert du \textsc{Sahara} laisse supposer qu’il y aurait une réaction des $\tau$-particules à la chaleur ou à une forte exposition à la lumière du soleil.
+	Nous n’avons pas réussi à confirmer une telle hypothèse par l’expérience, mais cela est peut-être dû au fait qu’il y a de nombreux autres facteurs pour qu’un tel point de singularité apparaisse.
+	Pour nous autres scientifiques, ce point de singularité est une mine d’informations~!
+	Comprendre comment ce phénomène se produit et pourquoi pourra nous permettre de découvrir de nombreuses choses sur notre univers et ses forces cachées.
+	Cela pourra peut-être même nous permettre de confirmer ou d’infirmer la théorie comme quoi notre univers serait la solution partielle d’une gigantesque équation différentielle, qui sera détruit si le moindre paradoxe temporel existe.
+	Si l’on arrive à infirmer ou à compléter cette théorie, il est même possible que les voyages dans le temps puissent un jour devenir monnaie courante~:  quel progrès pour l’humanité~!
+	Le pétrole ne manquera plus jamais~:  il suffira d’entreposer quelques matières organiques dans des bidons scellés, puis de voyager dans le temps jusqu’au moment où ces matières organiques seraient transformées en pétrole et de ramener ce produit dans notre présent.
+	Il sera possible de limiter de manière considérable les consommations en mémoire de l’\textsc{Internet}, en câblant des réseaux \emph{à travers} le temps, une unique mémoire pourra permettre de stocker bien plus que sa capacité, le temps ajoutant une nouvelle dimension de stockage~!
+	Tout ceci est incroyablement excitant, et découvrir comment fonctionne ce phénomène naturel du point de singularité est d’une grande importance scientifique~!
+
+	J’ai été choisi pour voyager jusqu’à ce point de l’espace-temps.
+	Ma mission est d’y récolter le plus d’information possible sur tout ce qui pourrait réagir avec les $\tau$-particules aux alentours du point.
+	Envoyer un robot était hors de question~:  d’une part, il aurait été beaucoup plus difficile pour lui de rapporter la moindre évidence scientifique (il faut que le voyageur s’y connaisse un minimum en la force $\tau$), d’autre part il n’aurait pas été possible de le contrôler à distance (dans le passé), enfin le moindre problème aurait fait risquer de créer un paradoxe temporel et de détruire l’univers.
+	Je n’ai pas peur~:  je suis prêt à encourir les risques d’une telle mission.
+	Ils sont grands~:  si je me rends compte qu’une de mes actions puisse engendrer un paradoxe temporel, je dois absolument éviter cette action, ou je dois tenter de la réparer après coup comme je le peux.
+	Ma propre vie n’a plus aucune importance devant cette tâche~:  si je créé — même involontairement ou en voulant sauver ma peau — un paradoxe temporel, l’univers disparaîtra, et moi avec.
+
+	Les outils que j’ai à ma disposition sont les suivants~:
+	\begin{description}
+		\item[Un enregistreur d’ondes $\tau$]  Je dois le ramener avec moi à la fin de la mission afin que l’on puisse analyser ses données.
+			Je dois bien évidement me débrouiller pour ne pas le laisser aux mains des hommes de l’époque ou un paradoxe pourra être créé.
+		\item[Un implant à accents]  Une des merveilles de la technologie moderne~:  cet appareil me permet d’imiter l’accent des hommes de l’époque sans que j’ai à faire le moindre effort.
+		\item[La tige de nanostructures]  Indispensable pour revenir dans le futur une fois ma missions terminée.
+		\item[Un compteur $\tau$]  Lorsqu’il détectera une quantité importante d’ondes $\tau$, il me préviendra.
+		\item[Des préleveurs d’échantillons]  Ils me permettront de prendre un peu de roche ou de matériau là où je me trouverais.
+			Il n’y a pas beaucoup de place pour les échantillons (à peine une dizaine)~:  je ne devrais donc les utiliser que lorsque je pense que pense que cet échantillon pourra vraiment apporter quelque chose à la recherche sur les particules $\tau$.
+	\end{description}
+	Je suis de plus déguisé et maquillé pour ressembler à un citoyen du pays en question de l’époque.
+}
+
+\pageForPlayer{2}{Jason~Vercours}{
+	\item[Âge] 22~ans (né en 2013).
+	\item[Détails physiques] Petit et mince.
+	\item[Possessions] Une tige de nanostructures (pour voyager dans le temps), un implant à accents et des vêtements de 2001 pour ne pas être repéré.
+}{
+	Lorsque l’on m’a appelé pour participer à l’effort de guerre, j’admets ne pas m’attendre à cela… je vais bientôt voyager dans le temps~!
+	C’est une mission secrète qui consiste à découvrir ce qui s’est passé lors de la disparition du président \textsc{Ubu~Nassim~Abbas}, en 2001.
+	Finalement, c’est un peu ça qui a entraîné la guerre il y a deux ans, en 2032.  Et ce n’est pas un événement anodin, surtout quand on voit les conditions dans lesquels il est réapparu~!
+
+	Le problème, c’est que l’on se sait rien sur ce qui s’est passé à ce moment là~!
+	Certains pays de l’\textsc{ONU} ont ainsi secrètement décidé d’envoyer des «~éclaireurs~» inter-temporels pour aller comprendre ce qui s’y est passé.
+	Ils m’ont sélectionné — peut-être tout simplement car mon faible poids leur permet de m’envoyer plus facilement dans le temps, mes autres qualités n’étant pas particulièrement remarquables…
+	Je suis donc éclaireur~:  mon but est d’aller à un des endroits où ils suspectent la disparition du président en 2001.
+	Je dois y aller et faire mon rapport, c’est tout~:  mon unique but est de savoir si c’est bien l’endroit où le président a été enlevé, et de comprendre ce qui s’y est passé.
+
+	Ils ont beaucoup insisté sur le fait que je ne devais pas tenter de changer quoi que ce soit là bas.
+	Pour le coup, je ne suis pas sûr de les comprendre~:  pourquoi dépenser tant d’énergie pour seulement obtenir un peu d’information~?  Pourquoi ne pas tenter de tuer le futur déclencheur de la troisième guerre mondiale~?
+	Ils ont essayé de me briefer rapidement sur les remontées dans le temps, mais bon honnêtement, je n’ai pas tout compris avec leurs théories fumeuses~:  la seule chose que j’ai vraiment compris, c’est qu’eux mêmes ne sont pas certains de ce qu’ils avancent~!
+
+	D’après ce qu’ils m’ont dit, si mon rapport confirmait leurs soupçons que le «~président~» se trouvait bel et bien ici en 2001, ils enverraient un agent.
+	J’ai pour ordre de faire tout ce que cet agent me dira une fois là-bas.
+	Ils m’ont aussi si dit que l’agent n’apparaîtrait pas brusquement comme on pourrait le penser au moment où je découvrirais (si cela s’avère être le cas) que \textsc{Ubu~Nassim~Abbas} est bel et bien ici~:  l’agent sera \emph{déjà} là, depuis le début.
+	Mais ils m’ont dit de ne pas m’occuper de cet éventuel agent avant d’avoir trouvé le président.
+
+	Je ne sais pas ce qu’ils ont fumé en rédigeant cet ordre de mission, mais c’est bien la première fois que je découvre un délire comme ça~!
+	Mais bon~:  ma mission consiste à trouver le président, et une fois que je l’aurai trouvé (si tant est que je le trouve), de trouver l’agent qu’ils enverront et de lui obéir.
+	Mais puisque cet agent sera déjà là, pourquoi ne pas directement essayer de le chercher lui~?  Si je trouve l’agent en premier, j’aurais fait d’une pierre deux coups puisqu’ils n’enverront pas d’agent si le président n’était pas là.
+	Bref, c’est beaucoup plus simple comme cela.
+
+	Mais d’ailleurs, s’ils sont si méfiants, c’est peut-être parce qu’ils ont peur de ce que je pourrais faire~:  ils pensent que je suis \emph{totalement} incapable de tuer le président de mes propres mains si je le trouve.
+	C’est bien la preuve qu’ils n’ont aucune confiance en moi et qu’ils ne m’ont \emph{vraiment} que choisi parce que mon poids était suffisamment faible pour m’envoyer au casse-pipe sans dépenser trop d’énergie.
+	Je vais leur montrer, moi, de quel bois je me chauffe~!  Je vais faire de mon mieux.
+	De toute façon, l’agent qu’ils enverront sera là pour m’aider si je n’y arrive pas.
+
+	L’important est que j’arrive à le tuer moi-même~:  ils ne pourront que me donner toutes les médailles qu’ils ont à disposition pour avoir arrêté la guerre dans le passé~!
+	Après tout, c’est \textsc{Ubu~Nassim~Abbas} qui a commencé la guerre…
+}
+
+\pageForPlayer{3}{Christopher~Pill}{
+	\item[Âge] 42~ans (né en 1992).
+	\item[Détails physiques] Musclé et agile.
+	\item[Possessions] Une mallette d’agent secret et une tige à nanostructures.
+}{
+	Et pourtant j’en ai entendu des choses, mais celle-ci, elle n’est pas mal~:  ils vont m’envoyer dans le passé.
+	Mais ils vont m’envoyer dans un passé où je suis déjà et que je ne pourrais pas modifier.  Bref, c’est très étrange, mais on va leur faire confiance.
+	Comme d’habitude, ça pourra permettre d’arrêter la grande guerre.
+
+	J’aime beaucoup la façon dont ces vieux décrépis m’ont annoncé ce voyage temporel~:  «~Arriver à récupérer ces documents ennemis secrets et d’une importance capitale n’était en fait qu’un test — qui nous a certes bien servis, mais cela ne reste qu’un test — pour votre véritable mission.~».
+	Je ne sais pas trop s’ils se rendent compte qu’à chaque fois ils me demande de sauver le monde en considérant cela comme tout à fait normal.
+	Enfin bon, on finit par avoir l’habitude ; l’important était d’arriver à trouver du bon temps en même temps que le reste.
+
+	Ma mission est de déterminer exactement ce qui s’est passé ce jour de 2001 où le président \textsc{Ubu Nassim Abbas} a mystérieusement disparu.
+	D’après leurs modèles physico-mathématiques, je ne pourrais pas empêcher la guerre…  Mais je pourrais trouver suffisament d’information pour comprendre où était ce \textsc{Ubu Nassim Abbas} pendant ces 24~ans et qui s’est fait passé comme un agent des \textsc{États-Unis} pour le torturer pendant tant de temps.
+	Ce sont des informations qui pourraient permettre à nos diplomates de régler pacifiquement la situation mondiale actuelle — le motif de la guerre n’ayant toujours pas été clarifié.
+
+	Ils ont envoyé un éclaireur avant moi pour vérifier si c’est bien l’endroit où se passe l’action, mais il n’est pas revenu et on a pas recouvré son corps (mais bon, 34~ans après il ne doit pas en rester grand chose…).
+	Il est peut-être encore en vie, mais il n’a en tout cas pas réussi à remonter dans le présent.  C’est assez étonnant de se dire que cet homme à qui je vais parler est déjà mort.
+
+	Dans tous les cas, et c’est là que cette mission est assez complexe, \emph{je ne dois pas interférer} avec les événements.  Si quelqu’un devait mourir, je ne dois pas le sauver.
+	Le problème dans l’autre sens ne pose pas vraiment de problème puisqu’à part \textsc{Ubu Nassim Abbas}, aucune trace comme quoi les autres aient survécus n’a été retrouvé.
+	Bon, on ne sait pas non plus qui était présent sur place (et ça fait parti de ma mission de connaître leurs exactes identités), donc il peut y avoir des problèmes tout de même.  Dans le doute, je vais être prudent.
+
+	Une conséquence de cette non interférence est que je ne dois pas chercher à prendre contact avec cet éclaireur — son nom est \textsc{Jason~Vercours} en passant — tant que sa destinée n’est pas scellée.  Comme il avait pour mission de m’aider à partir du moment où il saurait que je serait là (c’est à dire à partir du moment où il saura que \textsc{Ubu Nassim Abbas} est présent~:  c’est un éclaireur à la base~!), je ne dois pas lui faire savoir que je suis l’agent secret à qui il doit obéir avant qu’il ne sache que le président de la \textsc{République arabe sahraouie démocratique} est ici et donc que j’ai bien été envoyé dans le passé.
+	Plus subtilement, je suis censé faire en sorte qu’il ne rentre pas non plus (de peur de risquer un nouveau paradoxe), par exemple en lui demandant de faire quelque chose de particulièrement risqué lorsque ça en vaudra la peine.
+	Un bon bazar, quoi.
+
+	On m’a remis une mallette d’agent secret~:  je peux rapidement en faire sortir un petit poignard en cas d’incident, et elle contient une petite arme à feu en plusieurs pièces ainsi que des munitions pour cette dernière.  Bien entendu, il me faudra un certain temps pour monter cette arme à feu et je risquerais de me la faire prendre si on venait à me voir avec trop tôt.
+	Cette valise contient aussi bien entendu plusieurs papiers vierges, de quoi écrire et plusieurs faux documents diplomatiques~:  je ne sais pas qui sera exactement présent à cet endroit, mais il doit y avoir un moyen pour que je me présente comme un assistant à un quelconque diplomate américain (nous avons des raisons de penser qu’il y en a un présent ici).  Ma couverture est donc un assistant envoyé à la dernière minute pour aider le diplomate en question ; c’est un peu faible et je risque d’avoir des problèmes avec cela, mais tant qu’on ne connaîtra pas plus précisement qui est présent, on ne pourra pas faire mieux.
+
+	La mallette est de plus capable de se vérouiller définitivement~:  une fois que j’aurais les identités de tout le monde et que je pense ne pas pouvoir obtenir de nouvelles informations — ou plutôt que je ne pense pas pouvoir obtenir de nouvelles informations tout en se débrouillant pour que ceux qui m’envoient reçoivent bien celles que j’ai déjà — je les glisserait à l’intérieur de cette mallette, fermerait définitevement la mallette et la cahcerais quelque part.
+	Elle émettra alors au bout des 24~ans qui me sépareront de la base des ondes spéciales qui permettront de la retrouver, avec mes informations.
+
+	Si j’arrive à en survivre (comme toujours, j’apprécie le ton avec lequel ils disent cela), je peux aussi tout simplement m’accrocher à la tige de nanostructure.
+	Celle-ci retournera en effet dans le présent au bout de quelques heures, avec quiconque l’agripant.
+
+	Une mission bien compliquée en somme…
+}
+
+\pageForPlayer{4}{Jane~Royld}{
+	\item[Âge] 37~ans (née en 2000).
+	\item[Détails physiques] Assez costaude, avec une posture un peu imbue d’elle-même.
+	\item[Possessions] De nombreuses petites armes cachées (un petit poignard dans la chaussure, une pointe camouflée en baguette à cheveux, des boutons qui tirent des fléchettes soporifiques) et une tige à nanostructures.
+}{
+	Ça y est~!  Nous avons enfin pu reprendre la base~!
+	Ce territoire nous avait été pris par les troupes de l’\textsc{Union africaine} l’an dernier.
+	Et ils le défendaient bien~!  Nous avons été repoussés plusieurs centaines de kilomètre au Nord.
+	Le support aérien était relativement inutile à cause des missiles sol-air et des nombreuses DCA qu’ils avaient installés.
+	Nous avons donc dû combattre.
+
+	Il y a eu beaucoup de morts.  La plupart de mes supérieurs mourraient au combat au bout de quelques mois.
+	Il faut dire que certains d’entre eux n’étaient pas des plus courageux — et vu la posture des guerres modernes, être au front est presque moins dangereux qu’être là où les attentats arrivent~:  beaucoup sont morts alors que le quartier général sautait avec eux.
+
+	On m’a ensuite élevé au grade de brigadier.  J’ai pu alors lever une offensive majeure.
+	Certes, les pertes ont étés plus que nombreuses, mais l’on a avancé — et cela a ainsi permis de ne pas perdre inutilement des unités comme mes prédécesseurs.
+	Cette attaque a d’ailleurs value à mes subordonnés le surnom de «~brigade brûlée~».
+
+	Les troupes du dictateur reculent, mais elles ont pu utiliser pendant plusieurs mois notre matériel technologique déposé dans cette base.
+	Et ce matériel technologique est de taille~:  il permet en effet les remontées dans le temps~!
+	Si nous l’avions mis ici, si proche de la frontière et donc si proche des combats, c’était justement pour s’en servir.
+	Cet endroit est en effet l’emplacement précis où \textsc{Ubu~Nassim~Abbas} a disparu~!
+
+	Malheureusement, les troupes ennemis l’on vite compris.  D’après ce que nos ingénieurs ont conclu, ils auraient déjà envoyé un ou plusieurs agents dans le passé, au moment fatidique.
+	Nous avions déjà envoyé (avant que cette base ne nous ai été prise) un agent là-bas, qui nous avait permis de connaître précisement les personnes présentes.
+	C’était une négociation non officielle de frontière entre le \textsc{Maroc} et la \textsc{République arabe sahraouie démocratique}.
+	À l’époque, le rapport disait avoir «~maîtrisé la situation~» sans vraiment plus de détails.
+	Mais alors, s’ils ont envoyés de nouveaux agents là-bas, la rencontre a changé.
+	Qui sait ce qui s’est passé~?
+
+	La seule certitude que nous avons est que c’est bien à ce moment qu’ils ont envoyés leurs agents.
+	En même temps que de découvrir cette situation, je devais faire le point sur la situation présente de mes troupes.
+	Nous avions perdu énormément de nos moyens après l’offensive.  Et nos espions signalaient des arrivées de nouvelles troupes et véhicules blindés ennemis.
+	Nous ne pouvions pas tenir très longtemps~:  cette base allait de toute façon être reprise dans quelques mois.
+
+	J’avais donc deux chois qui s’offraient à moi~:  ou alors je défendais cette base autant que je le pouvais, ou alors je me repliais en terrain plus connu et protégé.
+	Le second choix était facile à mettre en place — n’importe qui aurait pu le faire — mais ça serait gâcher la puissance militaire que j’avais alors.
+	La première solution était un pur suicide.
+
+	C’est alors que j’ai eu l’idée d’une solution intermédiaire~:  je confiais le commandement de mes troupes à un de mes subordonnés en lui donnant ordre de se replier, tandis que je serais envoyé dans le passé.
+	Là, je pourrais appliquer toute mon art de la guerre et de la stratégie.
+	Les ingénieurs m’ont confirmé que seule une personne pourrait être envoyé dans le passé dans le temps imparti.
+
+	J’ai donc décidé d’y aller.
+	Là-bas, je pourrais tâcher d’empêcher les envoyés ennemis d’interférer avec la première mission.
+	C’est aussi là-bas que je pourrais rencontrer le maintenant très célèbre \textsc{Ubu~Nassim~Abbas} avant qu’il ne déclare la reste au reste du monde.
+	Je pourrais même tenter de faire quelque chose contre lui~!
+	Je vais pour cela tâcher d’être subtile…
+
+	À cause de leur poids, je suis dans l’incapacité d’apporter des armes trop lourdes.
+	De toute façon, là où je vais est censé être une rencontre diplomatique~:  elles auraient de toute évidence été de trop (je ne veux pas troquer une guerre contre une autre~:  les diplomates ne verront pas d’un bon œil un quelconque attentat, et ils ne croiront manifestement pas que je vienne du futur).
+
+	On m’a remis une tige à \emph{nanostructures} qui me permettra de remonter dans le temps.
+	Je ne sais pas trop comment ça marche, mais il va falloir que je la serre fort pour partir.
+	Une fois là-bas, elle re-partira au bout de quelques heures.
+	Il faudra que je la surveille à ce moment car si je veux revenir, il faudra répéter l’opération.
+	Si je rate le moment, elle partira sans moi, je laissant sans moyen de revenir~!
+}
+
+\pageForPlayer{5}{Dayazell~Faiz}{
+	\item[Âge] 25~ans (né en 2011).
+	\item[Détails physiques] De nombreuses cicatrices dues à des tirs de balles.
+	\item[Possessions] De nombreuses armes (coutelas et armes à feux petites mais puissantes) et une baguette en nanostructures.
+}{
+	Après deux ans de guerre mondiale, nous avons enfin réussi à retrouver et même agrandir les frontières de la \textsc{République arabe sahraouie démocratique} que les occidentaux nous avaient arraché.
+	Enfin~!  Depuis que \textsc{Ubu Nassim Abbas} a déclaré la guerre au reste du monde occidental pour renverser l’ordre mondial en détruisant le \textsc{Maroc}, qui a toujours été plus occidental qu’autre chose.
+	Les nations anciennement appelées «~grandes~» se sont alors ralliées et nous ont arraché nos frontières, nous forçant à nous rabattre dans d’autres pays de l’\textsc{Union africaine}.
+	Voilà donc qu’après deux ans de guerre nous reprenons contrôle de la situation (du moins en \textsc{Afrique} du Nord-Ouest).
+
+	Notre général en chef — \textsc{Ubu Nassim Abbas} lui-même — a alors demandé à aller personnellement voir un petit bâtiment isolé sur les anciennes frontières de notre ancien pays.
+	D’après ce qu’il nous a dit, c’est ici qu’il a disparu, et c’est aussi ici qu’il a réapparu, il y a 11~ans.  Il cherche probablement des réponses…
+
+	Quelle ne fut pas notre surprise de voir que le «~petit bâtiment~» en question était devenue une véritable base occidentale.
+	Il y a avait peu d’armes, mais qu’est ce qu’il y avait de matériel scientifique complexe.  D’après \textsc{Ubu Nassim Abbas}, il n’y avait rien de tout cela lorsqu’il y était les deux dernières fois — il y a respectivement 35 et 11~ans.
+	À l’évidence la base a été abandonné à la va-vite sans vraiment prendre le temps de détruire ce qu’ils pouvaient détruire.
+	Nos scientifiques ont fait le maximum pour comprendre comment tout ce matériel marchait.  D’après ce qu’ils nous ont affirmé, cela ressemble énormément à ce qui avait été décris par les chercheurs occidentaux en 2032, en beaucoup plus perfectionné.  D’après eux, cette base ne serait qu’une gigantesque machine à remonter dans le temps~!
+
+	Cela expliquerait beaucoup de choses~!  Lorsque \textsc{Ubu Nassim Abbas} a été enlevé en 2001, c’était par des gens envoyés depuis cette machine — l’an dernier, en 2035 d’après le tableau de bord de la base.
+	Il a dû ensuite réussir à s’échapper pendant le voyage (il admet lui-même ne pas avoir compris ce qui se passait, et qu’il avait tout fait pour s’échapper).
+	Les occidentaux essayaient donc de l’éliminer avant même qu’il leur cause problème et tente de renverser l’injuste ordre mondial qui régnait alors.
+
+	Mais d’après ces mêmes journaux de bords, d’autres personnes ont étés envoyés dans le passé après.  L’hypothèse la plus probable est qu’ils ont bien vu qu’en modifiant ainsi le passé, le futur n’a pas changé en mieux pour autant (notre général s’étant enfui…).  Il essayent donc de continuer à modifier le passé depuis tout ce temps~!
+
+	C’est assez inquiétant lorsqu’on y pense~:  ils vont finir par effacer et modifier complêtement ce qui s’est passé entre-temps — potentiellement y compris ma propre naissance~!
+	Même nos scientifiques avouent ne pas être certains de ce qui se passerait en cas de modification ou de «~paradoxes temporels~», quoique ceci veuille dire.
+	Ce qui est sûr, c’est que ce qui se passe actuellement — la grande guerre mondiale et tout cela — pourra être supprimée d’un seul coup si les choses se passent mal là où les agents occidentaux ont étés envoyés~:  ici, mais en 2001.
+	Autant donc déplacer cette guerre dans le passé que dans le futur.
+
+	Le problème est que tout l’équipement de cette base ne permettra pas de transporter plusieurs personnes à la fois.  La machine utilise en effet des «~nanotubes~» — des espèces de baguettes sans grande particularité physiques autre que celles qui leurs permettent de voyager dans le temps.
+	Ils n’en ont trouvé qu’une seule dans toute la base~:  les autres doivent actuellement être dans le passé~!
+	Cette baguette ressemble beaucoup à celle qu’a agrippé \textsc{Ubu Nassim Abbas} pour voyager dans le futur d’il y a 11~ans et il est même possible que ce soit justement la raison pour laquelle elle soit là.
+	Cela signifie que tous les autres agents sont «~actuellement~» dans le passé en train de le modifier~!
+
+	J’ai été choisi pour aller là-bas.  Je vais donc rencontrer le \textsc{Ubu Nassim Abbas} de 2001~:  quel honneur~!
+	Ma mission première sera de trouver ces agents du futur partis l’an dernier et de les éliminer — ou du moins de les empêcher d’accomplir leur mission.
+	\textsc{Ubu Nassim Abbas} doit absolument rester en vie d’un bout à l’autre de la mission.
+	En cas de problème majeur, je suis autorisé à lui donner ma baguette, afin qu’il parte seul dans le futur.  Je n’aurais ainsi pas changé le cours du temps, mais je l’aurais protégé d’une fin pire.
+
+	Je dois éviter de trop parler de ces histoires de remontées dans le temps au \textsc{Ubu Nassim Abbas} du passé afin d’éviter de trop le perturber… sauf si cela pourrait se révéler être un intérêt stratégique pour la guerre.
+	Attention cependant~:  à cette époque la guerre n’existait pas et notre peuple était encore opprimé sans pouvoir faire quoique ce soit par les occidentaux.
+	Il vaut mieux pour nous qu’il y ait une guerre de toute façon~:  nous ne pouvons rester opprimé comme cela toutes nos vies~!  Cela n’est pas pour rien que j’ai rejoint les forces de notre général il y a deux ans~!
+
+	Le fonctionnement de la baguette est assez simple~:  une fois là-bas, j’aurais quelques heures pour faire ce que je voudrais.
+	Ensuite, la baguette remontera dans le présent (ou pas très loin~:  nos ingénieurs n’avaient pas l’air très certain de la date exacte d’arrivée…) avec son propriétaire, quel qu’il soit.
+	Si j’estime que je servirait mieux mon pays en restant, j’ai donc comme ordre d’y rester.  Si j’estime que quelqu’un d’autre doit aller dans le futur, j’ai pour ordre de lui donner ma baguette.
+
+	Une fois cette baguette revenue, et une fois seulement, nos forces ici seront à même d’envoyer un nouvel agent (qu’un double de moi-même verra donc, pas moi directement) — à condition bien sûr que nous contrôlions toujours cette base lorsque la baguette reviendra, voire que cette base n’ai pas purement disparue à cause de mes modifications…
+	La guerre continue donc, mais d’une manière étrange pour le moins…
+
+	Avant de partir, je prononce sans vraiment être sûr de ce que cela signifie la phrase~:  \emph{L’avenir se joue dans le passé~!}
+	Et me voilà happé par la machine…
+}
+
+\pageForPlayer{6}{Erwin~Ramohn}{
+	\item[Âge] 25~ans (née en 2822).
+	\item[Détails physiques] Grande aux cheveux courts, costume diplomatique, a tendance a regarder sa montre plus que de raison.
+	\item[Possessions] Une montre ressemblant de loin aux montres des années 2000.
+}{
+	Ah~?  J’entends un message arriver depuis mon oreillectro.
+	Qu’est ce que c’est~?  Serait-ce~?  Oui~!
+	Enfin l’administration des voyages temporels a accepté de remplir mon ordre de mission~!  Ouf~!
+	Faut-il vraiment une année entière pour obtenir un tel document~?
+
+	Ce voyage est d’une grande importance pour moi~:  je suis en dernière année de thèse sur la résolution des conflits internationaux dans le début du troisième millénaire.
+	Un vaste sujet s’il en est…  Cette période est le début d’une nouvelle ère assez intéressante pour les conflits internationaux~:  les conflits étaient souvent résolus bien en amont par des discussions plus ou moins secrètes, au contraire des époques précédentes beaucoup plus barbares où les guerre étaient très fréquente.
+	Lorsque l’on pense qu’avant cette période, les guerres faisant intervenir plus de la moitié de la population mondiale s’enchaînaient quasiment les unes aux autres~!
+	Il était rare voire inexistant de voir se passer 50~ans de paix sur tout un continent.
+
+	Cette période est justement assez intéressante puisqu’elle fait s’alterner les deux méthodes de résolution des conflits~:  les gouvernements tentent de plus en plus d’éviter les guerre en organisant des rencontres souvent secrètes où les dirigeants jouent \emph{cartes sur table}, pour reprendre une expression de l’époque.
+	Pourtant, cela n’empêche pas les grandes guerres d’éclater ; on pensera notamment à la première guerre mondiale du millénaire — alors appelée la \emph{Troisième Guerre mondiale} (comme si c’était la seule).
+
+	Si j’ai demandé cette mission l’an dernier, c’est parce que mes recherches sur les conflits mineurs ayant pu intervenir dans le déclenchement de cette fameuse \emph{grande Guerre} a attiré l’attention sur une petite réunion, une autre de ces petites «~résolution diplomatiques~» qui me plaît tant.
+	J’ai des doutes, mais j’ai l’intuition que cette dernière a pu dégénérer en quelque chose de beaucoup plus gros en effet papillon.
+	Comme toujours dans ce genre de résolution, les écrits de l’époque sont très difficiles à trouver.
+	Les archives regorgent de tellement de données personnelles que je dois trier~:  c’est souvent cachés au milieu de tous ces documents sans importance que je découvre, après des mois et des mois de recherche, de petits indices sur telle ou telle résolution.
+
+	Parfois, elles sont organisées par des organisations telles la \textsc{CIA} (une agence secrète gouvernementale de l’époque), parfois par de organisations beaucoup plus secrètes telles les francs-maçons et autres organisations que la plupart des habitants de l’époque considèrent comme alors disparus.
+	Il est alors extrêmement difficile de comprendre quoique que ce soit à ce qui s’est passé.
+	Pourtant la plupart des cas je finis par trouver la clef de l’énigme et à comprendre ce qui s’est réellement passé.
+
+	Mais cette fois, la situation était beaucoup trop complexe… et l’effet boule de neige engendré a été énorme~:  une guerre mondiale, la première du millénaire, une fois que tous les états s’étaient pourtant plus ou moins mis d’accord pour ne jamais recommencer une telle entreprise.
+	Cette guerre a été extrêmement chaotique.
+	Il est probable que plus de la moitié des états alors impliqués n’avaient pas la moindre idée de leur véritable ennemi~:  après plusieurs pagailles diplomatiques jamais vu jusqu’alors, les \textsc{États-Unis d’Amérique} (un état maintenant disparu contrôlant alors quasiment toute l’économie de la planète) ont lancés une force armée dans la zone, pour «~pacifier le terrain~».
+	Un état, alors appelé le \textsc{Maroc}, a ensuite été littéralement rayé de la carte par une arme nucléaire.
+	Le choc des populations quant à l’utilisation de cette arme, alors considérée comme complètement aberrante et désuète de part sa puissance démesurée, a été énorme.
+	Les \textsc{États-Unis d’Amérique} ayant alors des dirigeant assez impulsifs ont répliqués quasi-immédiatement de peur de se faire eux-même attaquer, détruisant plusieurs états, mais entraînant en guerre la totalité du continent africain.
+	La \textsc{Chine} a immédiatement réagit en entrant en guerre contre les \textsc{États-Unis d’Amérique}, l’\textsc{Europe} s’entre déchirant pour savoir s’il faut combattre contre l’\textsc{Afrique}, contre les \textsc{États-Unis} ou contre le bloc \textsc{Asiatique}, tandis que de nombreux états d’\textsc{Asie} se lançaient en guerre contre la \textsc{Chine}, l’\textsc{Afrique} ou l’\textsc{Europe}.
+
+	Autant dire qu’assez peu de textes ont survécu à ce barbarisme sans fin, d’autant que la situation de l’époque n’était pas claire pour tout le monde à la base.
+	Mais ce qui m’a perturbée dans cette affaire est un détail qui pourrait avoir déclenché certaines prémisses à cette guerre~:  un dirigeant d’un état d’\textsc{Afrique} en conflit avec le \textsc{Maroc}, la \textsc{République arabe sahraouie démocratique} a semble-t-il disparu en 2001 pour réapparaître subitement en 2025 sans que l’on sache quoi que ce soit sur ce qui s’est passé entre-temps pour lui.
+	C’était certes neuf ans avant la guerre, mais j’ai l’impression que quelque chose de très louche se cache sous cette histoire.
+	Et je vais enfin pouvoir en avoir le cœur net~!
+
+	Je vais bientôt être projeté à l’endroit où ce fameux dirigeant, \textsc{Ubu Nassim Abbas} a mystérieusement disparu.
+	J’aimerais bien savoir qui a bien pu le capturer pendant toutes ces années — j’ai le sentiment que cela me mènera à la compréhension de ce conflit incroyable.
+	Mais tout cela a un prix~:  pour pouvoir remonter dans le temps, encore faut-il comprendre comment le temps fonctionne.
+	On a dû m’expliquer toutes ces histoires de scientifiques fous avant de m’envoyer là-bas.
+
+	De ce que j’en ai compris, il ne me sera pas possible de modifier quoique ce soit là-bas — il n’est donc même pas la peine d’essayer de résoudre le conflit malgré mes connaissances de tout ce qui va se passer par la suite — mais cela ne veut pas dire que je ne dois parler à personne.
+	C’est assez compliqué à comprendre, mais je pense avoir compris~:  j’ai le droit d’être là-bas, de parler aux gens, etc.  Mais je n’ai pas le droit de leur donner de nouvelles informations qu’ils n’auraient pas pu avoir.
+	Je vais donc probablement modifier quelques détails mineurs du temps, mais je ne pourrais pas modifier le cours total du temps.
+	J’imagine que c’est parce qu’ils vont réussir à compenser ici ce que je ferais là-bas tant que cela reste des détails mineurs.  C’est intéressant à savoir ; je me demande bien comment ils font… bah~!  C’est leur problème.
+
+	Ce qui est embêtant est que si je modifie effectivement des événements importants, l’univers sera détruit.
+	Bigre, ça fout les jetons tout de même.
+	Et ils ont effectivement l’air d’y croire~:  ils m’ont fait passé de nombreux tests pour voir ce que je ferait dans telle ou telle situation.
+	Ils m’ont même fait répéter un même test jusqu’à ce que je comprenne que si j’ai là-bas le choix entre vivre mais modifier un événement important ou mourir en protégeant l’univers, il faudrait choisir le second choix.
+	Cela donne un peu la chair de poule, mais si de toute façon je dois mourir, autant ne pas emporter le reste de l’humanité avec moi…
+	Ce qui m’embête, c’est qu’ils n’ont pas vraiment l’air de savoir ce qu’ils entendent exactement par «~événement important~».
+	Pour moi ma destination n’est qu’une de ces résolutions mineurs telles qu’il y en avait tant à l’époque…  Lorsque je leur ai posé la question, ils m’on cité l’effet papillon.  Super comme info…  Toujours les mêmes ces scientifiques.
+	Mais cela veut peut-être dire que je ne suis pas la seule à penser que cet événement a probablement engendré la Troisième Guerre mondiale.
+	Lorsque j’en ai parlé aux scientifiques, ils ont été très évasifs sur le sujet.
+
+	Bon, on verra.  J’espère juste ne pas avoir à faire le choix de détruire tout l’univers (et moi avec) lors de la mission.
+	Ils m’ont donné un objet ressemblant à une montre de l’époque.  Lorsque je voudrais revenir, je n’aurais qu’à l’avancer de quelques minutes.
+	Je partirais alors avec la montre au bout d’une bonne demi-heure, de retour à mon époque civilisée~!
+	Il est par contre impératif que je porte cette montre à ce moment ou cette dernière partira sans moi…
+
+	Mais je n’ai pas l’intention d’utiliser cette montre de sitôt, en tout cas pas avant d’avoir \emph{toutes} les informations qui pourraient m’être utiles pour le futur de mes recherches, y compris des informations mineurs — n’oublions pas que quasiment toutes les données de l’époque ont disparue dans la guerre~:  c’est vraiment une occasion unique\footnote{Et oui… les voyages dans le temps sont même à notre époque réservés à une minuscule élite.  Il est peut probable que je voyage dans le temps à nouveau dans toute ma vie~:  il va s’agir d’en profiter~!} qui s’offre à moi~!
+
+	Ah oui, dernier détail~:  on m’a affublé d’un costume diplomatique, de façon à ce que je puisse me faire passer pour une diplomate américaine parmi les autres diplomates.
+	L’habit, pourquoi pas, mais il a aussi fallut que j’oublie tous mes composants électroniques me reliant au reste du monde… remarque à l’époque, les communications n’étaient pas ce qu’elles sont devenues entre temps.
+	J’ai donc pris la mauvaise habitude de regarder ma montre en compensation… espérons que personne ne remarquera ce petit tic.
+}
+
+\pageForPlayer{7}{Helen~Adom}{
+	\item[Âge] 54~ans (née en 1947).
+	\item[Détails physiques] Plutôt grande, habillée selon l’étiquette
+	\item[Possessions] Un passeport américain, une carte du \textsc{Sahara occidental} avec quelques démarcations de territoires.
+}{
+	Et encore une nouvelle mission du même type.
+	La quasi-totalité des personnes sur cette planète estiment ces missions extrêmement rares, lorsqu’ils ne font que se douter de leur existence.
+	En pratique, elles arrivent tout le temps ; et je fais partie de ces personnes pour qui ces missions sont devenues une routine…
+
+	Quand je pense qu’au tout début, je voulais faire de la politique.
+	La guerre froide m’a appelée avec de nombreuses autres~:  après tout la résistance française lors de la seconde guerre mondiale comportait de nombreuses femmes, alors pourquoi pas celle-ci~?
+	C’est là-bas que j’ai finalement commencé ma véritable carrière.
+	On avait tout de suite repéré mes capacités de négociations diplomatiques.
+	Tandis que les combats avançaient, on m’envoyait dans le camp adverse afin de négocier une cessation des activités belligérantes, en l’échange de positions variées.
+	Bien entendu, personne ne se rappelait des fois où cela fonctionnait, puisqu’il n’y avait alors pas de bataille, pas (ou peu) de morts.
+	Et pourtant à chaque fois je risquais ma vie~!
+
+	On m’a fait apprendre de nombreuses langues.
+	C’est grâce à elles que j’obtenait des informations capitales chuchotées aux oreilles de mes orateurs adversaires dans une langue qu’ils ne me savaient pas connaître.
+	À chaque fois, je me rendais compte que ce qui compte dans une telle négociation, ce n’est pas tant les arguments que l’on a, mais ce que l’on sait que les autres ne savent pas que l’on sait~:  détenir une information secrète ne sert à rien si vos adversaires savent que vous la possédez.
+
+	Et quel est le meilleur moyen d’obtenir une information secrète sans que personne ne soit au courant~?
+	Discuter avec les sbires des généraux que l’on rencontre~!
+	La plupart du temps, un général qui veux négocier vient avec plusieurs gardes du corps à qui il fait confiance… mais ces «~gardes~» en connaissent finalement beaucoup eux aussi — et ils sont beaucoup plus facile à corrompre que le général~!
+	Voilà ma recette miracle pour réussir une négociation~:
+	\begin{itemize}
+		\item Instaurer autant que possible une ambiance calme et décontractée.  Le fait que je soit une femme a souvent tendance à jouer en ma faveur our cela.
+		\item Tenter de ne pas faire paraître l’opposition verbale, ou en tout cas le moins possible.
+			Cela passe par exemple par appeler le pays que l’on sert (les \textsc{États-Unis}) ou ses habitants de la même manière que la personne avec qui ont parle (et de même pour le pays de l’opposant).
+		\item Cela passe aussi et surtout par l’évitement \emph{à tout prix} d’une forme de discussion \emph{autour d’une table}~:  si l’on commence à s’asseoir, c’en est finit.
+			Personne ne va en effet se lever pendant le reste de la négociation, et l’on restera face à face, chaque camp de son côté, à se regarder et à «~négocier~».
+			Mais le simple fait qu’il y ait une table entre nous fausse le jeu~:  les uns sont clairement des «~ennemis~», les autres des «~alliés~».
+			Il ne faut donc surtout pas que l’on s’assoit autour d’une table~!
+		\item Une fois cette ambiance installée, le truc consiste à discuter avec tout le monde — \emph{absolument} tout le monde — le plus à huis clot possible et à se débrouiller pour que tout le monde le fasse.
+	\end{itemize}
+	C’est tout bête, mais avec cette méthode, les adversaires vont commencer à comploter avec un peu tout le monde dans la salle de négociation~:  ils vont se sentir en supériorité.
+	De mon côté, il ne me reste qu’à découvrir les secrets des différentes personnes ici présentes — et en particularité celles du général.
+	Une fois tous ces secrets connus, je connaitrais alors le point faible du général, que je peux mettre (subtilement) en avant~:  il découvrira alors combien je le connais, et il préférera perdre cette petite négociation que perdre sa place de général — voire sa tête.
+	Les gens sont somme toute raisonnables.
+
+	J’ai appliqué cette recette magique un nombre incalculable de fois et ais réussi à éviter un grand nombre de conflits.
+	Je n’ai presque plus besoin de savoir pour ou contre quoi se battent les belligérants pour pouvoir les contrôler.
+	Je suis ce que l’on appelle «~un négociateur de l’ombre~».
+
+	La mission actuelle est une mission de routine — pour moi en tout cas, mais certainement pas pour mes adversaires~!
+	Un conflit pour les terres du \textsc{Sahara occidental}~:  d’un côté le \textsc{Maroc} le revendique, mais de l’autre la \textsc{République arabe sahraouie démocratique}, un état autoproclamé sur ces terres demande à en avoir le contrôle.
+	S’il n’y avait que cela, les \textsc{États-Unis} n’auraient pas levés un doigt…  Le problème est qu’ils ont peur que ces terres aient été la place d’essais nucléaires russes lors de la guerre froide, et donc qu’il pourrait encore y rester de nombreux armements nucléaires.
+	Si l’on ajoute à cela le fait que cette terre, ancienne colonie espagnole qui n’a malheureusement pas vraiment réussi à y faire régner un véritable ordre a voulu «~bien faire les choses~» et a partagé le territoire en plusieurs zones entre le \textsc{Maroc} et la \textsc{Mauritanie}, mais en y laissant un vice de forme assez important, ce conflit pourrait un jour toucher l’\textsc{Espagne} et donc l’\textsc{OTAN}.
+	Aussi complexes soient elles, le jeu des alliances forceraient les différents membres à rentrer dans une nouvelle guerre, à moins qu’il ne préfèrent rompre les alliances, ce qui ne serait pas forcément mieux pour eux…
+
+	Enfin bref, on a besoin de moi.
+	On m’a donc envoyé négocier un découpage décidé par l’\textsc{OTAN} du \textsc{Sahara occidental} avant les conflits.
+	Bien entendu, on me demande que le découpage soit accepté dans trop de modifications par la \textsc{République arabe sahraouie démocratique}.
+
+	Quand je pense qu’après on va probablement me demander de faire la même chose pour le \textsc{Maroc}…
+}
+
+\pageForPlayer{8}{Ubu~Nassim~Abbas}{
+	\item[Âge] 38~ans (né en 1963)
+	\item[Détails physiques] Assez corpulent.
+	\item[Possessions] Habits militaires, nombreuses médailles.
+}{
+	Il sont 100~000.  \emph{100~000 soldats marocains} à garder ce «~mur~», le «~mur de la honte~» comme certains l’appellent.
+	Tsss…  Comme si l’appeler ainsi pouvait le renverser.
+	Il suffit de le voir tel qu’il est réellement~:  une petite barrière minée gardée par une poignée de soldats non entraînés.
+
+	Je suis le général en chef de la 2\ieme division et j’arrive à leur tenir tête avec seulement quelques milliers de soldats dans la région centrale, près de la capitale provisoire \textsc{Tifariti}.
+	Sur la totalité du front, nous sommes près de 15~000.
+	Mais ces soldats ne sont pas assez entraînés et se font massacrer sans grande difficulté.
+	Il faut montrer l’exemple, il faut éduquer les soldats par la peur.  C’est ainsi que l’on forme une grande armée.
+
+	Jusqu’alors, j’ai tout fait pour montrer à mes soldats ce qu’il fallait faire pour rester fort~:  des pendaisons contre les déserteurs, des amputations contre les froussards, et des médailles contre tous ceux qui arrivent à massacrer l’ennemi.
+	C’est ainsi que l’on dirige une armée.  Voilà le nerf de la guerre.
+	Cette guerre \emph{doit} être une guerre \emph{totale}~:  tout le monde, quel qu’il soit en \textsc{Sahara Occidental} doit vivre pour elle.
+	Chaque homme doit combattre, chaque femme doit travailler dur pour nourrir les hommes.
+	Voilà comment nous allons la gagner cette guerre.
+
+	Il existe encore des jeunes mûrs pour combattre qui restent chez eux.
+	Il va probablement falloir refaire une razzia dans notre propre camp pour aller les chercher.
+	Et encore, ils feront de mauvais soldats~:  à mes yeux, c’est une guerre civile plus qu’une guerre contre le \textsc{Maroc}.
+	Les marocains sont faibles et je les écraseraient.  \emph{Tous}.
+
+	Si seulement mes propres soldats n’étaient pas aussi lâches.
+	Si mes 15~000 hommes étaient tous comme la 2\ieme division, je ne ferait qu’une unique bouchée du \textsc{Maroc}… et je ne m’arrêterais pas là~!
+	Je \emph{détruirais} le \textsc{Maroc} et annexerais tout le \textsc{Magreb} et l’\textsc{Afrique} méditerranéenne.
+	Grâce à mes méthodes, je pourrais même lancer de nouvelles croisades sont l’\textsc{Europe}.
+
+	Ah, l’\textsc{Europe}…  Ces faibles.  Ils croient encore aux négociations.
+	Les marocains ont dû être influencés par eux.  Voilà pourquoi ils sont si faibles.
+	Non, décidément, même l’\textsc{Europe} et ses alliances pourries ne pourraient me résister.
+	Il faut que je demande à mon conseiller \textsc{Mohamed~Abd~Al-Kader} de refaire une passe dans nos villes pour aller chercher les soldats de demain~:  nos unités se perdent si vite…
+	Mais c’est parce qu’ils ont peur, je n’arrête pas de le dire.  Une fois qu’ils n’auront plus peur, nous conquerront le \textsc{Maroc}.
+
+	Quoique ce \textsc{Mohamed~Abd~Al-Kader} a une fâcheuse tendance à se comporter comme des européens~:  il vient d’accepter une négociation de la part des \textsc{États-Unis}.
+	Ce que les \textsc{États-Unis} ont à voir là dedans, je ne sais pas…  Il prennent probablement leur rôle de «~maîtres du monde~» un peu trop à cœur.
+	Il faudrait que ça change d’ailleurs, lorsque j’aurais assez de pouvoir pour le faire.
+	La paix, c’est bon pour les faibles~!
+
+	Enfin bon, du coup il va falloir que je les vois, ces américains.
+	Ils nous ont donné rendez-vous dans ce petit bunker sur la frontière.  Bon.
+	Ils doivent savoir que s’ils tentent la moindre action contre moi, ils y passeront~:  j’ai toute confiance sur l’inventivité de mes unités d’élites lorsqu’il s’agit d’imaginer des attentats.
+	Contre les marocains, ils ont l’habitude, alors contre les américains…
+
+	Bon, que cherche-t-il, ce \textsc{Mohamed}, pour avoir accepté une telle proposition~?
+	Est-ce qu’il veut que les américains nous fournissent des munitions, voire de l’aide armée~?
+	Ça ne serais pas de refus, c’est vrai, mais qu’ont-ils comme intérêt à nous en donner~?
+	Peut-être pensent-ils ainsi affaiblir l’\textsc{Afrique} et conserver leur place de monarques planétaires~?
+	C’est bien une preuve qu’ils ont peur de nous~!
+
+	Pour la «~négociation~», j’ai pu venir avec un de mes plus fidèle combattant, \textsc{Safouane~Abd Al-Ali}, très utile pour faire parler les gens.
+	Je ne pense pas que \textsc{Mohamed~Abd~Al-Kader} va apprécier, mais il faut bien lui rappeller qui commande ici.
+	Bon, voyons donc combien d’armes ont peut leur en soutirer à ces américains.
+}
+
+\pageForPlayer{9}{Mohamed~Abd~Al-Kader}{
+	\item[Âge] 28~ans (né en 1973)
+	\item[Détails physiques] Grand aux cheveux courts.
+	\item[Possessions] Lunettes, habits diplomatiques traditionnels.
+}{
+	Mon nom est \textsc{Mohamed~Abd~Al-Kader}.  L’histoire ne retiendra probablement pas grand chose de moi sinon ma position de conseiller d’un tyran.
+	Et pourtant je ne fais que servir mon peuple.  C’est comme cela, il faut apprendre à vivre avec~:  jamais l’histoire ne se souviendra de nous tels que nous étions.
+	Ce qui compte n’est pas l’image que mes descendants auront de moi~:  ce qui compte, c’est comment vivrons ces descendants.
+
+	Mon peuple est celui de la \textsc{République arabe sahraouie démocratique}.
+	Cet état n’est pas reconnu internationalement, mais qu’importe~:  ce qui compte, c’est comment il vit.
+	La terre de mon peuple est une des plus dure à vivre sur cette \textsc{Terre}~:  le \textsc{Sahara}, le \textsc{Sahara Occidental} pour être précis.
+	Nous avons une culture du désert qui est à nous, une façon de vivre qui est à nous, des principes à nous.
+	Il est important que nous conservions ces principes, qu’importe l’Histoire, qu’importe la reconnaissance internationale.
+
+	Le problème, c’est qu’un autre peuple désire cette terre qu’est le \textsc{Sahara Occidental}~:  celui du \textsc{Maroc}.
+	Historiquement, il n’a rien à faire ici~:  le \textsc{Maroc} ne désire cette terre que parce que les lois internationales pourraient éventuellement la lui donner.
+	Ce peuple ne cherche que le profit~!  Il n’a que faire de nous autres.
+	C’est donc avec tristesse mais devoir que je me dois de haïr le peuple marocain~:  ce qu’ils nous font n’est pas digne d’eux.
+	Le problème est qu’ils sont beaucoup plus puissants que nous, tant militairement que politiquement.
+	Notre seule chance est de les attaquer avant qu’ils aient la moindre autorisation pour riposter~:  peut-être arriverons nous à leur faire suffisamment peur pour qu’ils abandonnent l’idée de nous faire la guerre.
+	Mais pour cela, il va falloir leur montrer que nous faire la guerre leur coûterais plus cher que ce qu’ils pourraient y gagner~:  les terres du \textsc{Sahara Occidental}.
+
+	Cela va faire près de dix ans que je me suis engagé fortement pour notre peuple.
+	J’ai dû malgré moi acclamer le dictateur \textsc{Ubu~Nassim~Abbas}.
+	Je ne suis pas d’accord avec sa politique, ni avec ses idées, mais c’est un général qui sait faire peur aux ennemis de notre peuple.
+	Une fois ce conflit réglé, je ferais tout ce qui m’est possible pour qu’il abandonne son pouvoir et le redonne à notre peuple.
+
+	Je suis ainsi le conseiller d’un dictateur sans scrupule, qui est monté au pouvoir par ambition personnelle et non par conviction politique.
+	C’est un \emph{tyran}.  Jusqu’alors j’ai tout fait pour modérer sa politique, pour que le peuple ne souffre pas trop de la dictature.
+	Cette dictature est un mal nécessaire~:  du point de vue militaire, je le laisse faire ; mais je tente de le modérer du mieux que je peux quant à tout le reste.
+
+	Heureusement, cette phase de dictature peut maintenant changer~:  \textsc{Ubu~Nassim~Abbas} a fait suffisamment de bruit pour que l’\textsc{ONU} refuse de se prononcer en faveur du \textsc{Maroc} comme elle était partie pour le faire.
+	Du fait que cette situation soit principalement dû à une très mauvaise prise en charge de l’ancienne colonie espagnole qu’était notre terre, les \textsc{États-Unis} craignent que l’\textsc{Espagne} soir forcée à intervenir dans le conflit, et donc eux avec par le jeu d’alliance de l’\textsc{OTAN}.
+	Ils ont donc convoqué un diplomate chargé de partager le \textsc{Sahara Occidental}.
+
+	Le conflit peut se terminer très bientôt.  Il suffit pour cela que le partage nous laisse avec largement de quoi vivre pour nous et tous nos descendant pour le siècle à venir.
+	Le découpage qu’ils nous ont proposé partage le territoire en deux parties à peu près égales.
+	C’est une blague de la part des \textsc{États-Unis}, qui ne comprennent décidément rien à ce conflit~!
+	Le \textsc{Maroc} n’a moralement \emph{aucun} droit sur cette terre~!
+	Bien sûr, il faudra faire quelques concessions pour faire cesser le conflit, mais nous avons déjà si peu de surface pour cultiver~!
+
+	Une base \emph{minimum} est de nous donner les trois quarts du \textsc{Sahara Occidental}, c’est à dire diviser par deux la partie marocaine.
+	Nous n’accepterons jamais en dessous, quoi qu’il arrive~!
+
+	Pour faire accepter cette offre, il suffit de faire peur au diplomate.
+	C’est là qu’intervient cette brute de \textsc{Ubu~Nassim~Abbas}.
+	Si j’arrive à lui faire faire suffisamment peur au diplomate américain, ce dernier devrait rapidement comprendre qu’un conflit est la dernière chose qu’il désire.
+
+	Le problème, c’est aussi que \textsc{Ubu~Nassim~Abbas} risque de ne pas faire dans la dentelle…
+	S’il déclare la guerre aux \textsc{États-Unis}, on est mal parti.
+	Il faut juste leur faire comprendre que l’on veux éviter le conflit, et qu’ils auraient beaucoup à perdre s’ils nous obligent à faire la guerre.
+
+	Ça, c’est la théorie.
+	Le problème, c’est que c’est notre dictateur \textsc{Ubu~Nassim~Abbas} qui aura la parole et non moi.
+	Il va donc falloir que j’arrive à le convaincre de me laisser parler en son nom, ou au moins que je puisse donner mon avis.
+	C’est le problème avec les dictateurs — surtout lui d’ailleurs —~:  ils sont capricieux, et ne font preuve d’aucune stratégie autre que militaire.
+	Il va falloir lui apprendre la subtilité j’ai l’impression.
+
+	Avec un peu de chance, mon peuple pourra être libéré dans quelques moi du joug du général \textsc{Ubu~Nassim~Abbas} et de celui du \textsc{Maroc}…
+}
+
+\pageForPlayer{10}{Assia~Djamila}{
+	\item[Âge] 56~ans (née en 1945).
+	\item[Détails physiques] Habillée en haute responsable, à l’allure assez sévère et rigoureuse.
+	\item[Possessions] Quelques faux passeports américain, marocain et bien sûr sahraouie.
+}{
+	Pas de chance~:  des américains…  J’espère qu’ils la joueront subtile, cette fois-ci.
+	À peine infiltrée au gouvernement, j’ai déjà des batons dans les roues~!
+
+	Je fais partie de la CIA, section \textsc{Infiltrate}.  Forcément lorsque l’on apprend ça, on pense aux agents secrets et leurs gadgets à la con.
+	Et non, la CIA, c’est avant tout de petits agents dans mon genre qui cherche à grapiller des informations par ci par là au sein des gouvernements de ce monde.
+	Bien entendu je suis constament dans le secret et j’ai juré de mourir plutôt que de révéler ce que je sais de la CIA — j’ai d’ailleurs été soumises à de nombreux tests avant de partir en mission pour vérifier cette capacité.
+
+	On m’a choisie de part mes origines marocaines pour faire partie des hautes instances du gouvernement de la \textsc{République arrive sahraouie démocratique}.
+	Je ne sais pas vraiment si c’est un mauvais choix ou non~:  les sahraouies ont la fâcheuse tendance à être en guerre contre le \textsc{Maroc}…
+	Enfin bon, il est vrai qu’il y a peu de citoyens américains ayant la nationnalité sahraouie (d’autant plus qu’elle n’est pas reconnue internationalement).
+	Pour les \textsc{États-Unis}, c’est du pareil au même.
+	Pour moi, c’est juste la mort assurée si le dictateur \textsc{Ubu~Nassim~Abbas} venait à l’apprendre.
+
+	J’ai mis beaucoup de temps à infiltrer ce gouvernement.
+	De fil en aiguilles, en utilisant au maximum les pistons et les dessous de tables américains, ma position a pu monter, progressivement.
+	Je suis maintenant parmi le bureau principale du gouvernement.  Enfin, parmi le bureau…  Vu la place des femmes dans ce gouvernement.
+	En pratique, je suis plus la secrétaire de \textsc{Mohamed~Abd~Al-Kader}, le conseiller du dictateur.
+
+	Mais bon, cela me suffit pour obtenir de nombreux renseignements sur les décisions du gouvernement.
+	Très régulièrement — toutes les semaines environs — je suis censé donner un rapport complet de toutes les informations que j’ai rassemblées à un contact dans la capitale provisoire de \textsc{Tifariti}, un certain \textsc{Hatim~Riyad}.
+
+	Cela fait à peine deux semaines que j’occupe une cette position, mais j’ai déjà transmit des centaines d’informations importantes quant au conflit marocain.
+	Cette visite diplomatique américaine est plus ou moins faite dans le secret~:  ils ont dû venir à cause des informations que je leur ai donné pour appaiser la situation.
+	En un sens, c’est plutôt une bonne chose… mais je pense savoir comment tout cela s’est passé~:  il y a une administration et un délayage procédural dans les métiers du secret qui est assez impressionnant.
+	Les informations que j’ai transmises ont dû être envoyées à une couche supérieure d’administration, qui a elle même contacté des couches supérieures, jusqu’à arriver à un bureau d’appaisement des affaires diplomatiques mondiales.
+	Mais ce bureau a toutes les chances de ne pas avoir la moindre idée de ma position dans le gouvernement~!
+	Ils n’ont probablement aucune idée de la manière dont les couches administratives inférieures ont obtenu leurs informations.
+
+	Me voici donc chargée de m’occuper de cette rencontre diplomatique américaine alors même que je risque ma vie si le dictateur \textsc{Ubu~Nassim~Abbas} découvre ma véritable nationnalité~!
+	Il faut donc que maintenant plus que tout au monde je me dise être de nationnalité sahraouie.
+	Je suis sahraouie, je suis sahraouie.
+	Je suis espionne, je suis censée être capable de tenir ce rôle jusqu’au bout…
+	C’est juste que là, on m’en demande beaucoup~:  difficile de ne pas répondre avec son véritable accent anglais lorsque l’on nous parle directement avec cet accent.
+
+	En fait, il y aurait bien un moyen pour qu’\textsc{Ubu~Nassim~Abbas} ne le remarque pas.
+	Est-ce que c’est possible~?  Peut-être bien, finalement.
+	Le principe est simple~:  il me suffit de faire en sorte qu’au lieu que les discussions se fasse de manière publiques, tous assis autour d’une même table, les négociations soient… moins formelles.
+	Si tout le monde se retrouve debout à discuter les uns avec les autres, il sera beaucoup plus facile de ne pas être trop proche du dictateur et des américains en même temps.
+	C’est ça, il faut que j’arrive à mettre cette ambiance là.
+
+	\textsc{Ubu~Nassim~Abbas} n’est pas un diplomate, il me laissera faire à partir du moment où son conseiller \textsc{Mohamed~Abd~Al-Kader} l’acceptera.
+	Il ne me reste donc que lui à convaincre.
+
+	En même temps, il ne faut pas perdre de vue ma mission~:  collecter le plus d’informations possible sur le gouvernement et ses secrets cachés.
+	Il y a probablement moyen de trouver de nouvelles informations utiles au gouvernement américain (mais attention, pas aux diplomates~:  il ne faut pas tout mélanger si je veux garder ma tête…).
+
+	Mais… mais… Une tempête de sable~!
+	On peut dire que c’est mon jour de chance…
+	Quoique~:  c’est justement dans un climat de panique que l’on va pouvoir instaurer un climat de discussions non tendues~!
+	Il ne faut pas rater cette chance, il n’y en aura pas deux comme cela~:  allons-y.
+}
+
+\pageForPlayer{11}{Ronald~Shell}{
+	\item[Âge] 26~ans (né en 2001).
+	\item[Détails physiques] Pas spécialement grand ou costaud, mais on sent qu’il a participé à la grande Guerre.
+	\item[Possessions] Une tige de nanostructures, des rayons paralysants.
+}{
+	Maudite cigarette~!  C’est tombé sur moi~!
+	C’est moi qui va devoir risquer ma vie — et très probablement la perdre d’ailleurs — pour réparer les bêtises de mon ancienne supérieure, cette maudite \textsc{Jane Royld}.
+
+	Elle a toujours été plus tête brulée que tout le monde, incapable de rester quelque part à attendre les ordres.  Non, elle devait absolument partir loin, vers l’ennemi, tête baissée, sans réfléchir.
+	Il y a maintenant deux mois, nous avions pris sous son commandement le contrôle d’une de nos ancienne base.
+	Cette dernière avait la particularité de contenir du matériel permettant le voyage temporel, dans le but de comprendre ce qui s’était passé la soirée de la disparition du dictateur \textsc{Ubu~Nassim~Abbas}.
+
+	Mais à quoi bon une telle offensive si l’on ne pouvait pas garder la base plus d’une semaine~?
+	\textsc{Royld} ne l’a compris qu’en arrivant.  Mais alors, qu’a-t-elle décidé de faire~?
+	Se retraiter dans un endroit en sécurité pour tout le monde~?
+	Non, ça ne lui aurait pas ressemblé…  Non~:  elle nous a demandé de partir en retraite, en «~sécurité~», tandis qu’elle partira dans le passé faire on ne sait quel acte de bravoure.
+	Elle a fait cela sans ordre aucun et sans essayer de prévenir qui que ce soit à part quelques têtes de sa brigade.
+
+	Une initiative qui pourrait s’avérer fatale pour l’univers tout entier~:  elle n’a en effet pas eu le temps d’avoir le moindre briefing sur les théories récentes du temps, et surtout de la menace qui pèserait sur notre univers si elle déclenchait un paradoxe temporel.
+	Le monde entier pourrait bien être anéanti si l’on ne fait rien pour l’arrêter~!  Que se passerait-il si elle tuait \textsc{Ubu~Nassim~Abbas} alors que ce dernier n’a pas encore provoqué la guerre mondiale~?
+	Selon toute vraissemblance, ça serait la fin pur et simple du monde.  Un peu comme si l’univers tout entier n’avait jamais existé.
+
+	Tout cela à cause de cet ancien supérieur hiérarchique~!
+	On a donc décidé de m’envoyer, choisi hasard parmis tout ceux présents une fois que l’on a réussi à faire avancer la frontière — pour de bon, cette fois-ci.
+	Je dois l’empêcher de provoquer tout paradoxe, ce qui revient plus ou moins à l’empêcher de tuer qui que ce soit, ou de la laisser divulguer qu’elle vient du futur…
+	Bonjour la merde.
+
+	Grâce au travail d’un agent précédent, nous savons quel sont les membres présents ici.
+	Je note, non sans amertune, mon propre nom dans cette liste.
+	Même en sachant que tout cela n’est que le résultat des équations physiques du point fixe temporel, le fait de voir son propre nom dans une telle liste n’est pas sans rappeller la notion de destin.
+	J’étais à peine né que mon moi futur était en train de réparer les bêtises du supérieur de mon moi présent.
+	Il y a de quoi avoir froid au dos…
+
+	J’ai donc une tige à nanostructures, permettant le voyage temporel à condition de serrer assez fort la tige lorsque celle-ci se «~déplace~», le «~déplacement~» étant contrôlé à distance par les machines de la base.
+	Je sais donc que la tige repartira avec son propriétaire quelques heures après être arrivé, quel qu’il soit.
+
+	On m’a aussi donné des rayons paralysants.
+	C’est une arme qui n’existait pas à l’époque~:  il va donc falloir que ne la laisse jamais visible lorsque je l’utiliserais.
+	L’avantage d’une telle arme est que contrairement aux autres vieilleries elle ne tue pas sa cible, limitant d’autant la création de paradoxes temporels.
+	La seule personne que j’ai l’autorisation de tuer est mon ancienne supérieure (puisqu’on n’a vent d’aucun autre événement dans lequel elle aurait participé publiquement entre-temps).
+	Pour le reste, il va falloir improviser.
+
+	À noter aussi que le premier agent, \textsc{Christopher Pill}, ne doit pas mourir avant d’avoir mis la liste que je tiens actuellement entre les mains dans sa mallette, puis d’avoir verrouillé cette dernière.
+	C’est en effet comme cela que l’on a retrouvé cette liste, et changer la manière dont on découvre cette liste entraînerait un nouveau paradoxe.
+	Cependant, on m’a demandé d’éviter de prévenir cet agent, ainsi que son aide-main \textsc{Jason Vercours}~:  ces derniers pensent être les seuls voyageurs temporels ici présent.
+	Les informer de ma véritable identité ne ferait que les embrouiller, ou pire~:  leur faire croire qu’ils ont échoué, et qu’ils doivent donc échouer s’ils ne veulent pas engendrer de paradoxe temporel…
+	Il faudrait aussi qu’ils notent sur la liste que je tiens entre les mains que je ne vienne pas du futur (ou d’autres paradoxes arriveront).
+	En bref, ça serait une mauvaise idée de les prévenir~:  autant les laisser travailler tranquillement, quitte à jouer une personne bonne poire s’ils me demandent de l’aide.
+
+	J’espère que tout se passera bien.
+	Je serre fortement la tige tout en maudissant \textsc{Royld} et sent le passé me haper.
+}
+
+\pageForPlayer{12}{Safouane~Abd~Al-Ali}{
+	\item[Âge] 29~ans (né en 1972).
+	\item[Détails physiques] De nombreuses cicatrices, assez barraqué.
+	\item[Possessions] Un pistolet semi-automatique.
+}{
+	Quel enfer…  C’est depuis que j’ai participé à cette boucherie à \textsc{Tifariti} où les morts ne se comptaient plus, de même que la cruauté avec laquelle les quelques «~survivants~» avaient été torturés et tués.
+	Je ne voulais pas cela, moi~!  On m’avait chargé ainsi que d’autres soldats de protéger le président \textsc{Ubu~Nassim~Abbas}.
+	Je me souviens très bien.  C’était lors d’une manifestation pour la paix et le président avait voulu faire une annonce publique.
+	J’étais très excité~:  je voyais alors en le président un avenir pour notre patrie.  Il voulait se battre jusqu’au bout pour sauver la nation.
+	C’était ce qu’il disait et j’étais alors tellement convaincu par ses paroles mielleuses que je ne me rendais pas compte de sa soif de pouvoir et de sang…
+	Qu’est ce que j’ai pu être con à l’époque~!  Être autant aveuglé par ses propres convictions de liberté du pays pour en oublier l’essence même.
+
+	Lorsque le président est monté sur son estrade, commencer son discours, j’ai aperçu un sourire sur son visage.
+	J’avais interprété ce dernier comme un profond amour pour son peuple, mais je me rends compte seulement maintenant qu’il s’agissait d’un sourire de sadisme pur.
+	Il a commencé à déblatérer des discours majestueux sur l’unité du pays, a ensuite sygmatisé les marocains comme des envahisseurs avides d’espace, tels les anciens nazis et leur «~théorie de l’espace vital~».
+	Il a ensuite déclaré que notre plus grand ennemi n’était pas vraiment les marocains, mais notre non-unité contre eux, qu’il fallait arrêter ces absurdité de manifestations pour la paix et qu’il fallait enchérir de nouvelles hostilités contre le \textsc{maroc}.
+	À ce moment, toute la foule était concentré sur la place de la ville, à écouter les retransimissions des micros.
+	Il a demandé à ce que tous ceux qui seraient prêt à sacrifier leurs vie pour la nation s’avancent pour s’engager dans son armée.
+	Il a réussi à en convaincre certain — beaucoup de jeunes gens influencables qui changent d’avis sur un coup de tête.
+
+	Bien évidement la foule a réagit en insultant le tyran qui ne cherche qu’à faire grossir ses troupes.
+	À ce moment, il a fait un signe, en disant~:  «~voilà ce qui arrivera à tous ceux qui oseront me résister~».
+	Cela devait être un signal préparé à l’avance car des soldats placés sur les toits des bâtiments que je n’avais pas encore vu ont commencé à lancer des tirs de mortier dans la foule ainsi rassemblée.
+	J’étais complètement affolé, mais j’ai tenu mon poste… et j’ai tiré sur la foule enragée qui se précipitait sans espoir tenter d’affronter le président.
+	Quelle horeur, des innocents qui ne voulaient que la paix.
+
+	Mais le président a renchérit~:  il a prix un fusil des mains d’un de ses gardes et s’est avancé dans la foule en panique.
+	Je l’ai suivi et ai tout fait pour le protéger.  En pratique, cela a plus consisté à achever des blessés qui s’aprochaient trop en implorant notre pitié…
+	J’étais devenu complètement fou, je ne pensais qu’à ma mission.
+
+	Depuis ce temps là, il m’a pris dans sa garde d’élite.
+	Il me considère comme un de ces guerriers durs, et il attend de moi que je me comporte comme tel~:  il a déjà torturé jusqu’à la mort des compagnons d’infortunes dans la même situation que moi qui n’avaient selon lui «~pas assez pris plaisir à tuer~» dans une situation de bataille.
+	Torturés jusqu’à la mort…  Depuis ce temps-ci, je suis complètement coincé~:  je joue les durs toute la journée, j’y ai même pris goût, mais je garde ce profond regret qui est en moi.
+	J’ai toujours été trop lâche pour m’occuper d’autre chose que de ma petite personne, et je préfère largement jouer les durs sans sentiment que de me faire torturer.
+	Et je ferais tout pour que personne ne s’aperçoive de ma faiblesse, de peur que cela ne remonte au président.
+
+	Un véritable enfer~:  me voilà devenu un monstre aux ordres du président le plus sanginaire qui n’ai jamais eu, et je n’ai plus la moindre porte de sortie.
+	Enfin, président sanginaire, c’est vite dit~:  je suis d’avis qu’autant de monstruosité ne peut pas provenir d’une unique personne… et je pense savoir qui est derrière tout cela.
+	\emph{\textsc{Mohamed~Abd~Al~Kader}}.  C’est certain~:  il est constament derrière le président.
+	Ils se disputent rarement, mais après leurs discussions, \textsc{Ubu~Nassim~Abbas} a toujours un discours terriblement offensif.
+	Il se donne des airs d’être celui qui tente de calmer le président, mais je suis certain que c’est tout simplement lui qui tire les ficelles derrière le gouvernement…
+
+	Enfin, encore une fois, je suis loin d’être un héro, à jouer les durs comme cela.
+	J’ai d’ailleurs repéré une espionne américaine — un coup de chance~:  un reflet de montre qui m’a signalé sa présence au loin.
+	Mais il y a quelque chose d’étrange avec cette personne~:  mon intuition me dit qu’elle cache quelque chose.  Quelque chose qui nous sera utile.
+	Je pense que le mieux est de l’apporter devant le président.
+	Le temps n’est pas forcément le meilleur pour cela, mais j’ai l’impression étrange que c’est la bonne chose à faire.
+
+	Voyons donc vers quoi tout cela va nous mener…  J’espère juste finir vivant de ce cauchemard.
+}
+
+\pageForPlayer{13}{Sandy~Craft}{
+	\item[Âge] 22~ans (née en 1979).
+	\item[Détails physiques] Cheveux courts et visage abîmé par le sable (donc relativement reconnaissance du premier coup d’œil).
+	\item[Possessions] Un appareil photo et quelques photos discriminantes.
+}{
+	Cette fois-ci, je me suis bien fait avoir…  J’aurais dû faire attention~:  ma montre a reflété le soleil en plein dans les yeux du garde (un certain \textsc{Safouane} d’après ce que j’ai entendu).
+	Évidement, ça n’a pas loupé et j’ai été repérée immédiatement.
+
+	C’est très frustrant~:  enfin, j’avais localisé la position du dictateur et j’aurais pu prendre toutes les photos que j’aurais voulu… mais non.
+	À deux doigts du but final, j’ai perdu.
+
+	Ma couverture de journaliste risque de ne pas durer très longtemps par ici…  On va vite me prendre pour une espionne.
+	Remarque, ce n’est pas si faux.  C’est juste que je ne travaille pour aucun gouvernement.
+	Il va falloir jouer serrer si je veux survivre~:  le dictateur \textsc{Ubu~Nassim~Abbas} sera là pour négocier quelque chose.
+	Mais j’ai cru comprendre qu’il y aurait d’autres américains… il serait très mal vu de me tuer comme cela en pleine négociation.
+	Mais bon, cela ne signifiera pas qu’ils me liéreont pour autant.
+	Et j’aimerais bien garder mes photos~:  il y a beaucoup de compromettantes parmi elles et cela pourra faire le plus grand bien à la presse internationnale d’être au courant~!
+
+	Heureusement, il me reste plusieurs portes de secours au cas où ils voudraient me tuer.
+	Tout d’abord, j’ai mes photos.
+	Certes, certaines montrent des massacres ordonnés par \textsc{Ubu~Nassim~Abbas} particulièrement affreuses… mais d’autres montrent des soldats de l’\textsc{OTAN} tirant sur des militaires sahraouies comme des civils, malgré leur soit-disant «~non interférence~» sur les guerre locales.
+	Clairement cette dernière n’a pas respecté ses accords sur la guerre, et cela pourrait rompre quelques alliances mondiales si cela venait à se faire savoir.
+	Mais surtout cela pourra permettre de montrer la vérité sur les gouvernements au reste de planète, leur montrer à quel point les états mentent, même (et surtout) parmi les plus puissants.
+
+	J’aimerais bien vendre ces photos aux journaux du monde entier~:  j’espère que cela suffira pour engendrer une révolte mondiale~!
+	Qu’on en finisse avec ces états sur-corrompus.  J’en ai vraiment assez de tout cela~!
+	Je suis certaine que si je montre au dictateur mon intention de vouloir discréditer les états qui justement le restreigne, il sera se montrer clément.
+	J’espère juste qu’il me laissera partir avec toutes mes photos (y compris celles montrant les massacres effectués par ses soldats…).  Comme je le disais, il va falloir jouer serré.
+
+	Mon autre porte de sortie est ma véritable identité~:  je ne m’appelle pas \textsc{Sandy~Craft}, mais \textsc{Sandy~Bush}.
+	Et oui, je suis la fille disparue depuis maintenant deux ans du président des \textsc{États-Unis}.
+	Lorsque mon père m’a déclaré qu’il voulait que je continue sa place en politique, mais surtout lorsque j’ai vu comment il menait sa campagne contre \textsc{Al~Gore}.
+	\textsc{Al~Gore}, qui a toujours tenté d’œuvrer pour la paix et la transparence… et en face mon père, représentant du parti conservateur dit «~républicain~».
+	Évidement, sans corrompre les grand électeurs, c’est beaucoup plus difficile de remporter les élections~:  \textsc{Al~Gore} n’avait aucune chance.
+
+	Sachant comment tout cela allait se passer, je me suis enfuie, dégoûtée de la vie politique américaine.
+	Je voulais faire quelque chose qui puisse aider les gens, montrer aux gens la véritée sur les «~grands de ce monde~».
+	Je me suis dit que la meilleur chose que je pouvais faire était de partir dans un pays rongé par la guerre, et de montrer tout ce qui n’y va pas.
+	Montrer l’absurdité de cette dernière.  C’était cela, mon combat pour la planète ; pour l’humanité.
+
+	J’ai changé de nom et a réussi à débarquer ici, illégalement et sans passeport.
+	Par chance, une famille a accepté de me protéger et de m’aider dans mon combat.
+	J’y ai appris la langue locale et ai tout fait pour que personne ne me reconnaisse.
+	Mais il était temps que je parte accomplir ma vraie mission~:  j’ai traqué les zones de combats et les horreurs de la guerre.
+	Mais surtout, j’ai photographié tout ce qui allait à l’encontre des discours et des accords signés par les représentants des différents états, mais qui était effectivement accomplie par les militaires.
+
+	Je me suis ensuite rapproché de la zone de \textsc{Tifariti}, la capitale provisoire.
+	J’ai alors découvert que les horreurs étaient finalement bien pire par ici.
+	C’est cette tristement célèbre 2\ieme division, dirigée par le dictateur \textsc{Ubu~Nassim~Abbas} qui arrive à accomplir les plus grandes attrocités alors même qu’il s’occupe des négociations internationnales.
+	La \textsc{République arabe sahraouie démocratique} risque de ne pas durer très longtemps avec un dirigeant comme celui-ci…
+	Je me suis donc mise en tête de le traquer et de faire mon travail de journalisme par ici.
+	Il fallait bien que quelqu’un tente de le faire.
+
+	Mais maintenant que je me suis faite repérée, les choses risquent d’être plus compliquées.
+	J’espère pouvoir m’en sortir sans révéler mon identité~:  ça serait le moyen le plus simple pour arrêter ma carrière de journaliste indépendante…
+}
+
+\end{document}
+
