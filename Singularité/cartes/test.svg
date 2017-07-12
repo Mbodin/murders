@@ -778,7 +778,7 @@
 
 	<script type="application/ecmascript"><![CDATA[
 		function global_click (evt){
-			var time = 1000 * 60 * 20
+			var time = 1000 * 20
 			var svgns = "http://www.w3.org/2000/svg"
 
 			var x = evt.clientX - 100
@@ -874,7 +874,7 @@
 					return function (){
 						snim[i].beginElement ()
 						snim2[i].beginElement ()
-					}})(i), time + 10000 * Math.random ())
+					}})(i), time)
 			}
 
 			g.appendChild (circle)
