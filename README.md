@@ -118,3 +118,8 @@ https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr
 Le fichier « LICENSE » contient le texte de la license.
 Lisez la page pointée par le lien ci-dessus, ainsi que l’introduction de ce fichier README pour obtenir des informations plus claires.
 
+À noter cependant : ce répertoire a été fait rapidement, et je n’ai pas encore pris le temps de trier tous les fichiers.
+En particulier, la soirée enquête Asimov contient des pages web utilisées pour donner corps à l’univers. Je ne suis pas auteur de ces pages web.
+Tous les fichiers TeX, pdf, et svg de ce répertoire n’ont été écrits que par moi, et sous cette même licence CC BY-NC-SA.
+Dites-moi si c’est un problème pour vous que certains fichiers présents dans ce répertoire ne devraient pas y être.
+
